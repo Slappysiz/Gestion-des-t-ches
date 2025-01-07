@@ -1,21 +1,21 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --hue-color: 165;
+  --first-color: hsl(var(--hue-color), 60%, 33%);
+  --big-font-size: 2rem;
+  --font-bold: 800;
+  --mb-1: 1rem;
+  --z-fixed: 1000;
 }
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+@media screen and (min-width: 968px) {
+:root {
+  --big-font-size: 3rem;
 }
-
-body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+}
+body.dark {
+  --first-color: #0C0C1E;
+}
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
