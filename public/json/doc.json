@@ -1,0 +1,50 @@
+[
+ {
+  "id": 1,
+  "titre": "NE TIREZ PAS SUR L'OISEAU MOQUEUR",
+  "auteur": "Harper Lee",
+  "annee": "1960",
+  "genre": "Roman",
+  "description": "Un roman qui tient à la fois de la fiction mêlée d'éléments biographiques et du roman d'apprentissage, mais qui contient également les éléments d'un thriller qui le rapprochent du roman policier. Prix Pulitzer, le chef-d'oeuvre traite de l'héroïsme d'une homme face à une haine raciale aveugle et violente dans le sud des États-Unis."
+ },
+ {
+  "id": 2,
+  "titre": "LES MISÉRABLES",
+  "auteur": "Victor Hugo",
+  "annee": "1862",
+  "genre": "Roman",
+  "description": "Un roman historique de Victor Hugo, publié en 1862, considéré comme l'un des plus grands chefs-d'œuvre de la littérature française. L'œuvre est abondamment illustrée par des dessins de Gustave Brion. "
+ },
+ {
+  "id": 3,
+  "titre": "LE PETIT PRINCE",
+  "auteur": "Antoine de Saint-Exupéry",
+  "annee": "1943",
+  "genre": "Roman",
+  "description": "Un conte poétique et philosophique sous l'apparence d'un conte pour enfants. Publié en 1943 à New York simultanément à sa traduction anglaise, c'est l'œuvre la plus connue de l'auteur. "
+ },
+ {
+  "id": 4,
+  "titre": "LES FLEURS DU MAL",
+  "auteur": "Charles Baudelaire",
+  "annee": "1857",
+  "genre": "Poésie",
+  "description": "Un recueil de poèmes de Charles Baudelaire, englobant la quasi-totalité de sa production en vers, de 1840 jusqu'à sa mort survenue fin août 1867. "
+ },
+ {
+  "id": 5,
+  "titre": "L'ÉTRANGER",
+  "auteur": "Albert Camus",
+  "annee": "1942",
+  "genre": "Roman",
+  "description": "Un roman d'Albert Camus, paru en 1942. Il prend place dans la trilogie que Camus nommera « cycle de l'absurde », aux côtés du Mythe de Sisyphe et de La Peste. "
+ },
+ {
+  "id": 6,
+  "titre": "LES FLEURS DU MAL",
+  "auteur": "Charles Baudelaire",
+  "annee": "1857",
+  "genre": "Poésie",
+  "description": "Un recueil de poèmes de Charles Baudelaire, englobant la quasi-totalité de sa production en vers, de 1840 jusqu'à sa mort survenue fin août 1867. "
+ }
+]

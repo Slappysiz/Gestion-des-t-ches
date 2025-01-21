@@ -1,6 +1,6 @@
 import styles from './Header.module.css';
 import Image from 'next/image';
-import logo from '@/public/Logo.webp';
+import logo from '@/public/img/Logo.webp';
 import MenuNav from './MenuNav';
 
 export default function Header() {
@@ -10,7 +10,7 @@ export default function Header() {
                 src={logo}
                 alt="Logo React"
                 width={180}
-            />
+             />
         </div>
         <MenuNav/>
     </header>

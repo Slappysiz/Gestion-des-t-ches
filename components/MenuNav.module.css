@@ -1,7 +1,7 @@
 .nav ul {
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: right;
     flex-wrap: wrap;
     gap: 1rem;
     list-style-type: none;
