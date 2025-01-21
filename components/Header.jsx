@@ -5,13 +5,15 @@ import MenuNav from './MenuNav';
 
 export default function Header() {
     return <header className={styles.header}>
-        <div className={styles.title}>
-            <Image
-                src={logo}
-                alt="Logo React"
-                width={180}
-             />
-        </div>
-        <MenuNav/>
+            <div className={styles.title}>
+                <a href="/" className={styles.logoLink}>
+                    <Image
+                        src={logo}
+                        alt="Logo React"
+                        width={180}
+                    />
+                </a>
+            </div>
+            <MenuNav />
     </header>
 }
