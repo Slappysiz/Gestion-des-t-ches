@@ -1,11 +1,10 @@
-import Image from 'next/image';
-import styles from './page.module.css';
+import styles from "./page.module.css";
+import Accueil from "@/components/Accueil";
+
 export default function Home() {
-    return (
-        <main className={styles.main}>
-        <div className={styles.welcome}>
-            Soyez la bienvenue sur Panera
-        </div>
-        </main>
-    );
+  return (
+    <main className={styles.main}>
+      <Accueil/>
+    </main>
+  );
 }
