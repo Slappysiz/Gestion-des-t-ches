@@ -7,11 +7,25 @@ export default {
   ],
   theme: {
     extend: {
-      colors: {
-        background: "var(--background)",
-        foreground: "var(--foreground)",
+      perspective: {
+        '1000': '1000px',
+      },
+      rotate: {
+        'y-180': 'rotateY(180deg)',
       },
     },
   },
-  plugins: [],
+  plugins: [
+    function ({ addUtilities }) {
+      addUtilities({
+        '.perspective': {
+          perspective: '1000px',
+        },
+        '.backface-hidden': {
+          backfaceVisibility: 'hidden',
+          transformStyle: 'preserve-3d',
+        },
+      });
+    },
+  ],
 };

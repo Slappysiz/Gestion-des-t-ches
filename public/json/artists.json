@@ -1,0 +1,65 @@
+[
+    {
+        "id": 1,
+        "name": "Coldplay",
+        "image": "/img/artists/coldplay.webp",
+        "genre": "Pop Rock",
+        "description": "Coldplay continues to captivate fans with their emotional lyrics and stadium anthems. Their latest album, 'Music of the Spheres,' explores a celestial theme and features collaborations with BTS and Selena Gomez."
+    },
+    {
+        "id": 2,
+        "name": "Bad Bunny",
+        "image": "/img/artists/badbunny.webp",
+        "genre": "Reggaeton",
+        "description": "Bad Bunny dominates the charts with his vibrant reggaeton sound. His most recent album, 'Un Verano Sin Ti,' showcases a mix of tropical beats and heartfelt lyrics that have made him a global icon."
+    },
+    {
+        "id": 3,
+        "name": "The Weeknd",
+        "image": "/img/artists/theweeknd.webp",
+        "genre": "R&B",
+        "description": "The Weeknd's cinematic soundscapes have redefined R&B. His latest album, 'Dawn FM,' offers an immersive experience with 80s-inspired synths and introspective themes."
+    },
+    {
+        "id": 4,
+        "name": "Sabrina Carpenter",
+        "image": "/img/artists/sabrinacarpenter.webp",
+        "genre": "Pop",
+        "description": "Sabrina Carpenter brings her vibrant personality to the stage. Her latest album, 'Emails I Can't Send,' is an intimate exploration of love and heartbreak with catchy melodies."
+    },
+    {
+        "id": 5,
+        "name": "Billie Eilish",
+        "image": "/img/artists/billieeilish.webp",
+        "genre": "Alternative Pop",
+        "description": "Billie Eilish continues to innovate with her ethereal sound. Her most recent album, 'Happier Than Ever,' delivers deeply personal lyrics paired with experimental production."
+    },
+    {
+        "id": 6,
+        "name": "Foster the People",
+        "image": "/img/artists/fosterthepeople.webp",
+        "genre": "Indie Pop",
+        "description": "Foster the People captivates listeners with their eclectic indie-pop style. Their latest EP, 'In the Darkest of Nights, Let the Birds Sing,' explores themes of resilience and creativity."
+    },
+    {
+        "id": 7,
+        "name": "SZA",
+        "image": "/img/artists/sza.webp",
+        "genre": "R&B",
+        "description": "SZA's soulful voice has cemented her as a modern R&B icon. Her latest album, 'SOS,' blends heartfelt storytelling with innovative production."
+    },
+    {
+        "id": 8,
+        "name": "Khalid",
+        "image": "/img/artists/khalid.webp",
+        "genre": "Pop",
+        "description": "Khalid's smooth vocals and relatable lyrics continue to resonate with fans. His latest EP, 'Scenic Drive,' is a celebration of collaboration and mellow vibes."
+    },
+    {
+        "id": 9,
+        "name": "Lana Del Rey",
+        "image": "/img/artists/lanadelrey.webp",
+        "genre": "Indie Pop",
+        "description": "Lana Del Rey's hauntingly beautiful music evokes nostalgia and cinematic dreams. Her latest album, 'Did You Know That There's a Tunnel Under Ocean Blvd,' is a poetic journey through love and reflection."
+    }
+]

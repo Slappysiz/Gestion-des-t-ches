@@ -1,109 +1,111 @@
-/* globals.css */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&display=swap');
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #f3ac50;
+    color: #333; /* You can adjust the text color for better contrast */
+}
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 :root {
   --hue-color: 165;
-  /* --hue-color: 165; */
   --first-color: hsl(var(--hue-color), 60%, 33%);
-  --first-color-second: hsl(var(--hue-color), 69%, 61%);
-  --first-color-alt: hsl(var(--hue-color), 57%, 53%);
-  --first-color-lighter: hsl(var(--hue-color), 92%, 85%);
-  --title-color: hsl(var(--hue-color), 8%, 15%);
-  --text-color: hsl(var(--hue-color), 8%, 45%);
-  --text-color-light: hsl(var(--hue-color), 8%, 65%);
-  --input-color: hsl(var(--hue-color), 70%, 96%);
-  --body-color: hsl(var(--hue-color), 60%, 99%);
-  --scroll-bar-color: hsl(var(--hue-color), 12%, 90%);
-  --scroll-thumb-color: hsl(var(--hue-color), 12%, 80%);
-  --grey2: #eee;
-  --grey: #fafafa;
-  --light: #FFF;
-  --dark: #000;
-  --couleur1:hsl(295, 60%, 33%);
-  --couleur2:hsl(165, 60%, 33%);
-  --couleur3:hsl(235, 60%, 33%);
-  --couleur4:hsl(205, 60%, 33%);
-
-  /* Les differentes tailles pour les petits ecrans */
   --big-font-size: 2rem;
-  --h1-font-size: 1.5rem;
-  --h2-font-size: 1.25rem;
-  --h3-font-size: 1.125rem;
-  --normal-font-size: .98rem;
-  --small-font-size: .813rem;
-  --smaller-font-size: .60rem;
-  --interligne: 1.7;
-
-  /************ Font weight ***************/
   --font-bold: 800;
-  --font-medium-bold: 600;
-  --font-semi-bold: 400;
-
-  /************ Largeur du slidebar *************/
-  --slidebar-width: 300px;
-
-  /**************  Lageur max pages************/
-  --page-max-width: 1024px;
-
-  /************ hauteur du navBar *************/
-  --navbar-height: 4rem;
-
-  /******** Les differentes marges ***************/
-  --mb-0-25: .25rem;
-  --mb-0-5: .5rem;
-  --mb-0-75: 0.75rem;
   --mb-1: 1rem;
-  --mb-1-5: 1.5rem;
-  --mb-2: 2rem;
-  --mb-2-5: 2.5rem;
-  --mb-3: 3rem;
-
-  /****** z index  *****/
-  --z-tooltip: 10;
   --z-fixed: 1000;
-  --z-back: 0;
 }
-
-/****** Les tailles pour les grands ecrans *************/
 @media screen and (min-width: 968px) {
-  :root {
-    --big-font-size: 3rem;
-    --h1-font-size: 2.25rem;
-    --h2-font-size: 1.5rem;
-    --h3-font-size: 1.25rem;
-    --normal-font-size: 1.10rem;
-    --small-font-size: .875rem;
-    --smaller-font-size: .813rem;
-  }
+:root {
+  --big-font-size: 3rem;
 }
-
+}
 body.dark {
-  --light: #0C0C1E;
-  --grey: #060714;
-  --dark: #FBFBFB;
   --first-color: #0C0C1E;
 }
-
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
-
-a {
-  text-decoration: none;
+html, body {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden; /* Empêche le défilement horizontal */
+  width: 100%; /* S'assure que la largeur ne dépasse pas l'écran */
 }
 
-li {
-  list-style: none;
+* {
+  box-sizing: border-box; /* Évite que les marges et paddings ne provoquent un débordement */
 }
 
-html {
-  overflow-x: hidden;
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh; 
 }
+
+header {
+  
+}
+
+main {
+  flex: 1; 
+}
+
+footer {
+  background-color: #f1f1f1; 
+  text-align: center;
+  padding: 10px;
+}
+
 
 body {
-  background: var(--light);
+  background: linear-gradient(
+      135deg,
+      #FFD700, /* Bright yellow */
+      #FFB6C1, /* Light pink */
+      #FFCBA4, /* Peach */
+      #87CEEB, /* Sky blue */
+      #9370DB  /* Soft lavender */
+  );
+  background-size: 300% 300%; /* For smooth animation effect */
+  animation: gradient-animation 20s ease infinite;
+  color: #333; /* Adjust text for contrast */
+  font-family: 'Poppins', sans-serif;
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
 }
+
+/* Dynamic Gradient Animation */
+@keyframes gradient-animation {
+  0% {
+      background-position: 0% 50%;
+  }
+  50% {
+      background-position: 100% 50%;
+  }
+  100% {
+      background-position: 0% 50%;
+  }
+}
+
+.perspective {
+  perspective: 1000px;
+}
+
+.backface-hidden {
+  backface-visibility: hidden;
+  transform-style: preserve-3d;
+}
+
+.rotate-y-180 {
+  transform: rotateY(180deg);
+}
+
+
+

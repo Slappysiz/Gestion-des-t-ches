@@ -1,36 +1,28 @@
-import HeroSection from "../components/HeroSection";
-import Lineup from "../components/Lineup";
+import NextEvent from '@/components/EventSection';
+import PastEvents from '@/components/LineupSection';
+import AboutUs from '@/components/ThemeSection';
+import Contact from '@/components/PastEventsSection';
 
-export default function HomePage() {
-  return (
-    <div>
-      <HeroSection />
-      <Lineup />
-      <section id="contact" className="p-6 bg-gray-800 text-white">
-        <h2 className="text-3xl font-bold mb-4 text-center">Get in Touch</h2>
-        <form className="max-w-md mx-auto space-y-4">
-          <input
-            type="text"
-            placeholder="Your Name"
-            className="w-full p-3 rounded-lg bg-gray-700 text-white"
-          />
-          <input
-            type="email"
-            placeholder="Your Email"
-            className="w-full p-3 rounded-lg bg-gray-700 text-white"
-          />
-          <textarea
-            placeholder="Your Message"
-            className="w-full p-3 rounded-lg bg-gray-700 text-white"
-          ></textarea>
-          <button
-            type="submit"
-            className="w-full bg-yellow-300 text-black p-3 rounded-lg hover:bg-yellow-400"
-          >
-            Send Message
-          </button>
-        </form>
-      </section>
-    </div>
-  );
+export default function Home() {
+    return (
+        <main>
+            {/* Next Event Section */}
+            <div className="mb-16">
+                <NextEvent />
+            </div>
+
+            {/* Past Events Section */}
+            <div className="mb-16">
+                <PastEvents />
+            </div>
+
+            {/* About Us Section */}
+            <div className="mb-16">
+                <AboutUs />
+            </div>
+
+            {/* Contact Section */}
+            <Contact />
+        </main>
+    );
 }
