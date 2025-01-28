@@ -45,7 +45,7 @@ export default function Lineup() {
                 <Link
                     href="/lineup"
                     passHref
-                    className="bg-gradient-to-r from-yellow-400 via-pink-500 to-purple-500 text-white py-2 px-6 rounded-full font-semibold hover:bg-gradient-to-l transition duration-300"
+                    className="bg-grad text-white py-2 px-6 rounded-full font-semibold hover:bg-gradient-to-l transition duration-300"
                 >
                     More
                 </Link>

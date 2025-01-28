@@ -44,7 +44,7 @@ export default function Contact() {
     if (!formConfig) return <div>Loading...</div>;
 
     return (
-        <div className="min-h-screen bg-gradient-to-r from-yellow-400 via-pink-500 to-purple-500 text-white py-10 px-6">
+        <div className="min-h-screen bg-grad text-white py-10 px-6">
             <h1 className="text-4xl font-bold text-center mb-6">{formConfig.title}</h1>
             <p className="text-center text-lg mb-12">{formConfig.description}</p>
 
@@ -88,7 +88,7 @@ export default function Contact() {
                 <div className="text-center">
                     <button
                         type="submit"
-                        className="bg-gradient-to-r from-yellow-400 via-pink-500 to-purple-500 text-white py-2 px-6 rounded-full font-semibold hover:bg-gradient-to-l transition duration-300"
+                        className="bg-grad text-white py-2 px-6 rounded-full font-semibold hover:bg-gradient-to-l transition duration-300"
                     >
                         {formConfig.submitButton.text}
                     </button>

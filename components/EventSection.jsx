@@ -4,7 +4,7 @@ import Image from "next/image";
 
 export default function NextEvent() {
     return (
-        <div className="bg-gradient-to-r from-yellow-400 via-pink-500 to-purple-500 text-white p-10 rounded-lg shadow-lg animate-fade-in flex flex-col lg:flex-row items-center gap-8">
+        <div className="bg-grad text-white p-10 rounded-lg shadow-lg animate-fade-in flex flex-col lg:flex-row items-center gap-8">
             {/* Event Image */}
             <div className="w-full lg:w-1/2">
                 <Image

@@ -12,6 +12,8 @@ export default {
       },
       rotate: {
         'y-180': 'rotateY(180deg)',
+      },  backgroundImage: {
+        grad: "linear-gradient(to right, #FACC15, #EC4899, #A855F7)", 
       },
     },
   },
