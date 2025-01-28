@@ -1,3 +1,8 @@
+/* globals.css */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 :root {
   --hue-color: 165;
   /* --hue-color: 165; */
