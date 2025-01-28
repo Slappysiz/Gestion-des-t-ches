@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Link from "next/link"; // Import Link from next/link
 
 export default function Footer() {
     const [footerMenu, setFooterMenu] = useState([]);
@@ -22,12 +23,13 @@ export default function Footer() {
                             <ul>
                                 {section.links.map((link, linkIndex) => (
                                     <li key={linkIndex} className="mb-1">
-                                        <a
+                                        <Link
                                             href={link.href}
+                                            passHref
                                             className="hover:underline text-gray-400"
                                         >
                                             {link.label}
-                                        </a>
+                                        </Link>
                                     </li>
                                 ))}
                             </ul>

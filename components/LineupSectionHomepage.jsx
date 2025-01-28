@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Image from "next/image";
+import Link from "next/link"; // Import Link from next/link
 
 export default function Lineup() {
     const [artists, setArtists] = useState([]);
@@ -41,12 +42,13 @@ export default function Lineup() {
             </div>
             {/* "More" Button */}
             <div className="text-center mt-8">
-                <a
+                <Link
                     href="/lineup"
+                    passHref
                     className="bg-gradient-to-r from-yellow-400 via-pink-500 to-purple-500 text-white py-2 px-6 rounded-full font-semibold hover:bg-gradient-to-l transition duration-300"
                 >
                     More
-                </a>
+                </Link>
             </div>
         </div>
     );
