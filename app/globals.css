@@ -1,10 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&display=swap');
-body {
-    font-family: 'Poppins', sans-serif;
-    background-color: #f3ac50;
-    color: #333; /* You can adjust the text color for better contrast */
-}
+
 
 @tailwind base;
 @tailwind components;
@@ -34,12 +30,12 @@ body.dark {
 html, body {
   margin: 0;
   padding: 0;
-  overflow-x: hidden; /* Empêche le défilement horizontal */
-  width: 100%; /* S'assure que la largeur ne dépasse pas l'écran */
+  overflow-x: hidden; 
+  width: 100%; 
 }
 
 * {
-  box-sizing: border-box; /* Évite que les marges et paddings ne provoquent un débordement */
+  box-sizing: border-box; 
 }
 
 .wrapper {
@@ -66,15 +62,15 @@ footer {
 body {
   background: linear-gradient(
       135deg,
-      #FFD700, /* Bright yellow */
-      #FFB6C1, /* Light pink */
-      #FFCBA4, /* Peach */
-      #87CEEB, /* Sky blue */
-      #9370DB  /* Soft lavender */
+      #FFD700, 
+      #FFB6C1, 
+      #FFCBA4, 
+      #87CEEB, 
+      #9370DB  
   );
-  background-size: 300% 300%; /* For smooth animation effect */
+  background-size: 300% 300%; 
   animation: gradient-animation 20s ease infinite;
-  color: #333; /* Adjust text for contrast */
+  color: #333; 
   font-family: 'Poppins', sans-serif;
   min-height: 100vh;
   margin: 0;

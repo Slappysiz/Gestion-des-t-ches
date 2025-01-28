@@ -1,5 +1,5 @@
-import Header from "@/components/Header.jsx";
-import Footer from "@/components/Footer.jsx";
+import Header from "@/components/footer-header/Header.jsx";
+import Footer from "@/components/footer-header/Footer.jsx";
 import { Inter } from 'next/font/google';
 import './globals.css';
 

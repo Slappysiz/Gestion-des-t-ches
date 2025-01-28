@@ -61,5 +61,68 @@
         "image": "/img/artists/lanadelrey.webp",
         "genre": "Indie Pop",
         "description": "Lana Del Rey's hauntingly beautiful music evokes nostalgia and cinematic dreams. Her latest album, 'Did You Know That There's a Tunnel Under Ocean Blvd,' is a poetic journey through love and reflection."
+    },
+    {
+        "id": 10,
+        "name": "Childish Gambino",
+        "image": "/img/artists/childishgambino.webp",
+        "genre": "Hip Hop",
+        "description": "Childish Gambino is known for his innovative style blending hip hop, R&B, and funk. His album 'Awaken, My Love!' is a masterpiece of creativity and emotion."
+    },
+    {
+        "id": 11,
+        "name": "CKay",
+        "image": "/img/artists/ckay.webp",
+        "genre": "Afrobeat",
+        "description": "CKay rose to global fame with his hit 'Love Nwantiti,' captivating audiences with his smooth Afrobeat sound."
+    },
+    {
+        "id": 12,
+        "name": "Rema",
+        "image": "/img/artists/rema.webp",
+        "genre": "Afrobeat",
+        "description": "Rema has redefined Afrobeat with his fresh style and catchy hits like 'Calm Down.' He is a rising star in the global music scene."
+    },
+    {
+        "id": 13,
+        "name": "Burna Boy",
+        "image": "/img/artists/burnaboy.webp",
+        "genre": "Afrobeat",
+        "description": "Burna Boy is a Grammy-winning Afrobeat artist whose album 'Twice as Tall' has solidified his status as a global sensation."
+    },
+    {
+        "id": 14,
+        "name": "Kendrick Lamar",
+        "image": "/img/artists/kendricklamar.webp",
+        "genre": "Hip Hop",
+        "description": "Kendrick Lamar is one of the most influential rappers of his generation. His album 'DAMN.' won the Pulitzer Prize for its cultural impact."
+    },
+    {
+        "id": 15,
+        "name": "Dave",
+        "image": "/img/artists/dave.webp",
+        "genre": "Hip Hop",
+        "description": "Dave is a critically acclaimed UK rapper known for his poetic lyrics and storytelling. His album 'Psychodrama' won the Mercury Prize."
+    },
+    {
+        "id": 16,
+        "name": "Oxlade",
+        "image": "/img/artists/oxlade.webp",
+        "genre": "Afrobeat",
+        "description": "Oxlade delivers smooth Afrobeat vibes with hits like 'KU LO SA,' showcasing his soulful voice and unique sound."
+    },
+    {
+        "id": 17,
+        "name": "Gunna",
+        "image": "/img/artists/gunna.webp",
+        "genre": "Hip Hop",
+        "description": "Gunna is a prominent voice in modern hip hop, known for his melodic flows and chart-topping hits like 'Drip Too Hard.'"
+    },
+    {
+        "id": 18,
+        "name": "Don Toliver",
+        "image": "/img/artists/dontoliver.webp",
+        "genre": "Hip Hop",
+        "description": "Don Toliver blends hip hop and R&B seamlessly, creating hits like 'No Idea' and collaborating with stars like Travis Scott."
     }
 ]
