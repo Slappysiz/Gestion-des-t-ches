@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 
-export default function AboutUs() {
+export default function ThemeSection() {
     return (
         <div className="py-10 px-8 flex flex-col lg:flex-row items-center lg:items-start gap-8 ">
             {/* Text Content */}

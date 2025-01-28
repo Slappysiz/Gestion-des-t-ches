@@ -1,7 +1,7 @@
 import NextEvent from '@/components/EventSection';
-import PastEvents from '@/components/LineupSection';
-import AboutUs from '@/components/ThemeSection';
-import Contact from '@/components/PastEventsSection';
+import Lineup from '@/components/LineupSectionHomepage';
+import ThemeSection from '@/components/ThemeSection';
+import PastFestivals from '@/components/PastEventsSection';
 
 export default function Home() {
     return (
@@ -13,16 +13,16 @@ export default function Home() {
 
             {/* Past Events Section */}
             <div className="mb-16">
-                <PastEvents />
+                <Lineup />
             </div>
 
             {/* About Us Section */}
             <div className="mb-16">
-                <AboutUs />
+                <ThemeSection />
             </div>
 
             {/* Contact Section */}
-            <Contact />
+            <PastFestivals />
         </main>
     );
 }
