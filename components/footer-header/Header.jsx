@@ -16,8 +16,17 @@ export default function Header() {
             .then((data) => setMenuItems(data));
     }, []);
 
+    // Disable scrolling when menu is open
+    useEffect(() => {
+        if (menuOpen) {
+            document.body.classList.add("overflow-hidden");
+        } else {
+            document.body.classList.remove("overflow-hidden");
+        }
+    }, [menuOpen]);
+
     return (
-        <header className="text-[#f7fafc] font-['Poppins'] py-4 px-6 flex justify-between items-center">
+        <header className="text-[#f7fafc] font-['Poppins'] py-4 px-6 flex justify-between items-center relative z-50">
             {/* Logo */}
             <div className="flex items-center gap-2">
                 <Link href="/" passHref>
@@ -25,7 +34,7 @@ export default function Header() {
                 </Link>
             </div>
 
-            {/* Navigation - Desktop/Tablet */}
+            {/* Navigation - Desktop */}
             <nav className="hidden md:flex gap-x-8 text-md uppercase font-semibold">
                 {menuItems.map((item) => (
                     <Link
@@ -39,28 +48,44 @@ export default function Header() {
                 ))}
             </nav>
 
-            {/* Menu Icon - Mobile */}
+            {/* Mobile Menu Icon */}
             <div className="md:hidden">
-                <button onClick={() => setMenuOpen(!menuOpen)}>
-                    {menuOpen ? <IoClose size={30} /> : <IoMenu size={30} />}
+                <button onClick={() => setMenuOpen(true)}>
+                    <IoMenu size={30} />
                 </button>
             </div>
 
-            {/* Mobile Menu - Conditional Display */}
+            {/* Mobile Sidebar Menu */}
             {menuOpen && (
-                <div className="absolute top-16 left-0 w-full bg-[#1a202c] text-[#f7fafc] flex flex-col items-center gap-y-6 py-6">
-                    {menuItems.map((item) => (
-                        <Link
-                            key={item.id}
-                            href={item.link}
-                            passHref
-                            className="text-lg hover:text-[#ffeedc]"
-                            onClick={() => setMenuOpen(false)}
-                        >
-                            {item.label}
-                        </Link>
-                    ))}
-                </div>
+                <>
+                    {/* Background Overlay */}
+                    <div
+                        className="fixed inset-0 bg-black bg-opacity-50 z-40"
+                        onClick={() => setMenuOpen(false)}
+                    ></div>
+
+                    {/* Sidebar Panel */}
+                    <div className="fixed top-0 left-0 w-3/4 h-full bg-[#1a202c] text-[#f7fafc] flex flex-col items-center justify-center gap-y-6 z-50 shadow-lg transition-transform duration-300">
+                        
+                        {/* Close Button */}
+                        <button onClick={() => setMenuOpen(false)} className="absolute top-4 right-4">
+                            <IoClose size={30} className="text-white" />
+                        </button>
+
+                        {/* Navigation Links */}
+                        {menuItems.map((item) => (
+                            <Link
+                                key={item.id}
+                                href={item.link}
+                                passHref
+                                className="text-lg hover:text-[#ffeedc]"
+                                onClick={() => setMenuOpen(false)}
+                            >
+                                {item.label}
+                            </Link>
+                        ))}
+                    </div>
+                </>
             )}
         </header>
     );
