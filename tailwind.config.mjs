@@ -7,27 +7,21 @@ export default {
   ],
   theme: {
     extend: {
-      perspective: {
-        '1000': '1000px',
+      keyframes: {
+        float: {
+          '0%, 100%': { transform: 'translateY(-20px)' },
+          '50%': { transform: 'translateY(20px)' },
+        },
+        'float-reverse': {
+          '0%, 100%': { transform: 'translateY(20px)' },
+          '50%': { transform: 'translateY(-20px)' },
+        },
       },
-      rotate: {
-        'y-180': 'rotateY(180deg)',
-      },  backgroundImage: {
-        grad: "linear-gradient(to right, #FACC15, #EC4899, #A855F7)", 
+      animation: {
+        float: 'float 8s ease-in-out infinite',
+        'float-reverse': 'float-reverse 8s ease-in-out infinite',
       },
     },
   },
-  plugins: [
-    function ({ addUtilities }) {
-      addUtilities({
-        '.perspective': {
-          perspective: '1000px',
-        },
-        '.backface-hidden': {
-          backfaceVisibility: 'hidden',
-          transformStyle: 'preserve-3d',
-        },
-      });
-    },
-  ],
+  plugins: [],
 };

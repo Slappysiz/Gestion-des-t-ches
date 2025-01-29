@@ -1,6 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&display=swap');
-
+@import url('https://fonts.googleapis.com/css2?family=Playball&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Zen+Antique+Soft&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -101,4 +102,6 @@ body {
 }
 
 
-
+.clip-irregular {
+  clip-path: polygon(20% 0%, 100% 0%, 80% 100%, 0% 100%);
+}

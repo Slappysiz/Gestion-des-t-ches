@@ -2,7 +2,8 @@
 
 import { useState, useEffect } from "react";
 import Image from "next/image";
-import Link from "next/link"; // Import Link from next/link
+import Link from "next/link";
+import Button from "@/components/button";
 
 export default function Lineup() {
     const [artists, setArtists] = useState([]);
@@ -32,24 +33,17 @@ export default function Lineup() {
                                 objectFit="cover"
                             />
                         </div>
-                        {/* Artist Info */}
-                        <div className="p-4">
-                            <h3 className="text-xl font-semibold mb-2">{artist.name}</h3>
-                            <p className="text-gray-700">{artist.description}</p>
+                        {/* Artist Name */}
+                        <div className="p-4 text-center">
+                            <h3 className="text-xl font-semibold">{artist.name}</h3>
                         </div>
                     </div>
                 ))}
             </div>
             {/* "More" Button */}
             <div className="text-center mt-8">
-                <Link
-                    href="/lineup"
-                    passHref
-                    className="bg-grad text-white py-2 px-6 rounded-full font-semibold hover:bg-gradient-to-l transition duration-300"
-                >
-                    More
-                </Link>
-            </div>
+    <Button text="More" href="/lineup" variant="primary" />
+</div>
         </div>
     );
 }
