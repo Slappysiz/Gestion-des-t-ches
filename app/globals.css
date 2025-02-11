@@ -60,11 +60,11 @@ footer {
 body {
   background: linear-gradient(
       135deg,
-      #FFD700, 
-      #FFB6C1, 
-      #FFCBA4, 
-      #87CEEB, 
-      #9370DB  
+      #9370DB,  /* Violet */
+      #87CEEB,  /* Bleu ciel */
+      #FFCBA4,  /* Pêche */
+      #FFD700,  /* Or */
+      #FFB6C1   /* Rose clair (couleur finale) */
   );
   background-size: 300% 300%; 
   animation: gradient-animation 20s ease infinite;
@@ -74,6 +74,7 @@ body {
   margin: 0;
   padding: 0;
 }
+
 
 /* Dynamic Gradient Animation */
 @keyframes gradient-animation {

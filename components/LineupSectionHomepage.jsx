@@ -2,10 +2,9 @@
 
 import { useState, useEffect } from "react";
 import Image from "next/image";
-import Link from "next/link";
 import Button from "@/components/button";
 
-export default function Lineup() {
+export default function Lineup({ setPage }) {
     const [artists, setArtists] = useState([]);
 
     useEffect(() => {
@@ -42,8 +41,8 @@ export default function Lineup() {
             </div>
             {/* "More" Button */}
             <div className="text-center mt-8">
-    <Button text="More" href="/lineup" variant="primary" />
-</div>
+                <Button text="More" onClick={() => setPage('/lineup')} variant="primary" />
+            </div>
         </div>
     );
 }
