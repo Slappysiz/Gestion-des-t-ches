@@ -1,10 +1,11 @@
-"use client";
+'use client';
 
 import { useState, useEffect } from "react";
 import Image from "next/image";
 import Button from "@/components/button";
+import Link from "next/link";  // Import Link from next/link
 
-export default function Lineup({ setPage }) {
+export default function Lineup() {
     const [artists, setArtists] = useState([]);
 
     useEffect(() => {
@@ -41,7 +42,9 @@ export default function Lineup({ setPage }) {
             </div>
             {/* "More" Button */}
             <div className="text-center mt-8">
-                <Button text="More" onClick={() => setPage('/lineup')} variant="primary" />
+                <Link href="/lineup">
+                    <Button text="More" variant="primary" />
+                </Link>
             </div>
         </div>
     );

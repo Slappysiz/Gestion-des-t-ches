@@ -1,55 +1,19 @@
 'use client';
 
-import { useState } from 'react';
-import Header from '@/components/footer-header/Header.jsx';
-import Footer from '@/components/footer-header/Footer.jsx';
-import LineupDisplay from '@/components/lineup/LineupDisplay';
-import Contact from '@/components/contact/Contact';
-import NextEvent from '@/components/EventSection';
-import Lineup from '@/components/LineupSectionHomepage';
-import ThemeSection from '@/components/ThemeSection';
-import PastFestivals from '@/components/PastEventsSection';
+import Header from '@/components/footer-header/Header';
+import Footer from '@/components/footer-header/Footer';
 import { Inter } from 'next/font/google';
 import './globals.css';
 
 const inter = Inter({ subsets: ['latin'] });
 
-export default function RootLayout() {
-    const [page, setPage] = useState('/');
-
+export default function RootLayout({ children }) {
     return (
         <html lang="en">
-            <body className={inter.className}>
-                <Header setPage={setPage} />
-                <main>
-                {page === '/' ? (
-    <>
-        {/* Next Event Section */}
-        <div className="mb-16">
-            <NextEvent />
-        </div>
-
-        {/* Lineup Section */}
-        <div className="mb-16">
-            <Lineup setPage={setPage} />  {/* ✅ Pass setPage */}
-        </div>
-
-        {/* About Us Section */}
-        <div className="mb-16">
-            <ThemeSection />
-        </div>
-
-        {/* Past Festivals Section */}
-        <PastFestivals />
-    </>
-) : page === '/lineup' ? (
-    <LineupDisplay />
-) : page === '/contact' ? (
-    <Contact />
-) : (
-    <div>404 - Page Not Found</div>
-)}
-
+            <body className={inter.className + ' bg-gray-100'}>
+                <Header />
+                <main className="max-w-7xl mx-auto px-4 py-8">
+                    {children}
                 </main>
                 <Footer />
             </body>

@@ -2,9 +2,10 @@
 
 import { useState, useEffect } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import { IoMenu, IoClose } from "react-icons/io5";
 
-export default function Header({ setPage }) {
+export default function Header() {
     const [menuOpen, setMenuOpen] = useState(false);
     const [menuItems, setMenuItems] = useState([]);
 
@@ -29,21 +30,21 @@ export default function Header({ setPage }) {
         <header className="text-[#f7fafc] font-['Poppins'] py-4 px-6 flex justify-between items-center relative z-50">
             {/* Logo */}
             <div className="flex items-center gap-2">
-                <button onClick={() => setPage('/')} className="focus:outline-none">
+                <Link href="/" className="focus:outline-none">
                     <Image src="/img/BOP.webp" alt="Logo" width={150} height={150} />
-                </button>
+                </Link>
             </div>
 
             {/* Navigation - Desktop */}
             <nav className="hidden md:flex gap-x-8 text-md uppercase font-semibold">
                 {menuItems.map((item) => (
-                    <button
+                    <Link
                         key={item.id}
-                        onClick={() => setPage(item.link)}
+                        href={item.link}
                         className="hover:text-[#ffeedc] focus:outline-none"
                     >
                         {item.label}
-                    </button>
+                    </Link>
                 ))}
             </nav>
 
@@ -75,13 +76,14 @@ export default function Header({ setPage }) {
 
                 {/* Navigation Links */}
                 {menuItems.map((item) => (
-                    <button
+                    <Link
                         key={item.id}
-                        onClick={() => { setPage(item.link); setMenuOpen(false); }}
+                        href={item.link}
                         className="text-lg hover:text-[#ffeedc] focus:outline-none"
+                        onClick={() => setMenuOpen(false)} // Close menu after clicking
                     >
                         {item.label}
-                    </button>
+                    </Link>
                 ))}
             </div>
         </header>
