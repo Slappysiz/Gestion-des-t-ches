@@ -7,6 +7,7 @@ import Button from "@/components/button";
 
 export default function Contact() {
     const [formConfig, setFormConfig] = useState(null);
+    const [showConfirmation, setShowConfirmation] = useState(false); // State to show confirmation
     const { register, handleSubmit, reset, formState: { errors } } = useForm();
 
     useEffect(() => {
@@ -33,8 +34,13 @@ export default function Contact() {
         )
         .then((response) => {
             console.log('Email envoyé avec succès!', response.status, response.text);
-            alert("Thank you for your message!");
+            setShowConfirmation(true); // Show the confirmation message
             reset();
+            
+            // Hide confirmation message after 5 seconds
+            setTimeout(() => {
+                setShowConfirmation(false);
+            }, 5000);
         })
         .catch((err) => {
             console.error("Erreur lors de l'envoi de l'email:", err);
@@ -107,6 +113,13 @@ export default function Contact() {
                         />
                     </div>
                 </form>
+
+                {/* Custom confirmation message */}
+                {showConfirmation && (
+                    <div className="mt-6 text-center bg-green-100 text-green-800 p-4 rounded-lg shadow-lg">
+                        <p>Thank you for your message! We'll get back to you soon.</p>
+                    </div>
+                )}
             </div>
         </div>
     );
