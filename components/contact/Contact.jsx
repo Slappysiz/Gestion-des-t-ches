@@ -73,6 +73,7 @@ export default function Contact() {
 
                 <form
                     onSubmit={handleSubmit(sendMail)}
+                    noValidate // This prevents the browser from showing default validation messages
                     className="max-w-3xl mx-auto bg-white text-gray-800 p-8 rounded-lg shadow-xl"
                 >
                     {formConfig.fields.map((field) => (
@@ -86,20 +87,18 @@ export default function Contact() {
                             {field.type === "textarea" ? (
                                 <textarea
                                     id={field.id}
-                                    {...register(field.id, { required: "Ce champ est obligatoire" })}
+                                    {...register(field.id, { required: "Required" })}
                                     className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
                                     placeholder={field.placeholder}
                                     rows="5"
-                                    required
                                 ></textarea>
                             ) : (
                                 <input
                                     type={field.type}
                                     id={field.id}
-                                    {...register(field.id, { required: "Ce champ est obligatoire" })}
+                                    {...register(field.id, { required: "Required" })}
                                     className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
                                     placeholder={field.placeholder}
-                                    required
                                 />
                             )}
                             {errors[field.id] && <span className="text-red-500">{errors[field.id].message}</span>}
