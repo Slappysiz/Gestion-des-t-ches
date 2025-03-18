@@ -5,13 +5,14 @@ import Image from "next/image";
 import Link from "next/link";
 import { IoMenu, IoClose } from "react-icons/io5";
 import { useTheme } from '../ThemeProvider'; // Import the useTheme hook
-import SunIcon from '../../public/img/moon-icon.svg'; // Your sun icon for light mode
-import MoonIcon from '../../public/img/sun-icon.svg'; // Your moon icon for dark mode
+import { useLocale } from '../LocaleProvider'; // Import the useLocale hook for language switching
+import { FormattedMessage } from 'react-intl'; // For translations
 
 export default function Header() {
     const [theme, setTheme] = useTheme(); // Access the theme and setTheme function
     const [menuOpen, setMenuOpen] = useState(false);
     const [menuItems, setMenuItems] = useState([]);
+    const [locale, setLocale] = useLocale(); // Access the current locale
 
     // Fetch menu from headerMenu.json
     useEffect(() => {
@@ -35,10 +36,13 @@ export default function Header() {
         setTheme(theme === "light" ? "dark" : "light");
     };
 
+    // Toggle the language (FR/EN)
+    const handleLocaleChange = () => {
+        setLocale(locale === 'fr' ? 'en' : 'fr');
+    };
+
     return (
-        <header
-            className={`py-4 px-6 flex justify-between items-center relative z-50 bg-transparent text-inherit`}
-        >
+        <header className={`py-4 px-6 flex justify-between items-center relative z-50 bg-transparent text-inherit`}>
             {/* Logo */}
             <div className="flex items-center gap-2">
                 <Link href="/" className="focus:outline-none">
@@ -56,21 +60,30 @@ export default function Header() {
                             href={item.link}
                             className="hover:text-[#ffeedc] focus:outline-none"
                         >
-                            {item.label}
+                            {/* Use FormattedMessage for translating menu items */}
+                            <FormattedMessage id={`app.header.menu.lien${item.id}`} defaultMessage={item.label} />
                         </Link>
                     ))}
                 </nav>
 
                 {/* Dark Mode Toggle (Icon) */}
-                {/* This button will be hidden on mobile, only visible on larger screens */}
                 <div className="hidden md:flex items-center gap-x-4 ml-4 cursor-pointer" onClick={handleThemeToggle}>
                     <Image
-                        src={theme === "light" ? SunIcon : MoonIcon}
+                        src={theme === "light" ? "/img/sun-icon.svg" : "/img/moon-icon.svg"}
                         alt="Toggle Dark Mode"
                         width={30}
                         height={30}
                     />
                 </div>
+
+                {/* Language Switcher (Flag Icons) */}
+                <button onClick={handleLocaleChange} className="ml-4 hidden md:flex items-center gap-x-2">
+                    {locale === 'fr' ? (
+                        <Image src="/img/usa-icon.svg" alt="English" width={30} height={20} />
+                    ) : (
+                        <Image src="/img/fr-icon.svg" alt="French" width={30} height={20} />
+                    )}
+                </button>
             </div>
 
             {/* Mobile Menu Icon */}
@@ -103,20 +116,29 @@ export default function Header() {
                         className="text-lg hover:text-[#ffeedc] focus:outline-none"
                         onClick={() => setMenuOpen(false)} // Close menu after clicking
                     >
-                        {item.label}
+                        {/* Use FormattedMessage for translating menu items */}
+                        <FormattedMessage id={`app.header.menu.lien${item.id}`} defaultMessage={item.label} />
                     </Link>
                 ))}
 
                 {/* Dark Mode Toggle for Mobile Menu */}
-                {/* This button will only appear in the mobile sidebar */}
                 <div className="mt-4 flex items-center justify-center gap-x-4 cursor-pointer" onClick={handleThemeToggle}>
                     <Image
-                        src={theme === "light" ? SunIcon : MoonIcon}
+                        src={theme === "light" ? "/img/sun-icon.svg" : "/img/moon-icon.svg"}
                         alt="Toggle Dark Mode"
                         width={30}
                         height={30}
                     />
                 </div>
+
+                {/* Language Switcher (Flag Icons) in Mobile Menu */}
+                <button onClick={handleLocaleChange} className="mt-4 flex items-center gap-x-2">
+                    {locale === 'fr' ? (
+                        <Image src="/img/usa-icon.svg" alt="English" width={30} height={20} />
+                    ) : (
+                        <Image src="/img/fr-icon.svg" alt="French" width={30} height={20} />
+                    )}
+                </button>
             </div>
         </header>
     );

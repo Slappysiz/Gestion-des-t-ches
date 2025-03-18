@@ -1,17 +1,22 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useLocale } from '../LocaleProvider'; // Import the useLocale hook for language switching
 import Link from "next/link"; // Import Link from next/link
 
 export default function Footer() {
+    const [locale] = useLocale(); // Access the current locale
     const [footerMenu, setFooterMenu] = useState([]);
 
+    const translations = {
+        en: require('@/i18n/footerMenuEn.json'),
+        fr: require('@/i18n/footerMenuFr.json')
+    };
+
     useEffect(() => {
-        // Fetch footer menu from JSON file
-        fetch('/json/footerMenu.json')
-            .then((response) => response.json())
-            .then((data) => setFooterMenu(data));
-    }, []);
+        // Set the footer menu dynamically based on the selected language
+        setFooterMenu(translations[locale]);
+    }, [locale]);
 
     return (
         <footer className="bg-gray-900 text-white">
