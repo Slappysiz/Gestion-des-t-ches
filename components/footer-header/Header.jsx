@@ -4,8 +4,12 @@ import { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { IoMenu, IoClose } from "react-icons/io5";
+import { useTheme } from '../ThemeProvider'; // Import the useTheme hook
+import SunIcon from '../../public/img/moon-icon.svg'; // Your sun icon for light mode
+import MoonIcon from '../../public/img/sun-icon.svg'; // Your moon icon for dark mode
 
 export default function Header() {
+    const [theme, setTheme] = useTheme(); // Access the theme and setTheme function
     const [menuOpen, setMenuOpen] = useState(false);
     const [menuItems, setMenuItems] = useState([]);
 
@@ -26,8 +30,15 @@ export default function Header() {
         }
     }, [menuOpen]);
 
+    // Function to toggle theme (dark/light)
+    const handleThemeToggle = () => {
+        setTheme(theme === "light" ? "dark" : "light");
+    };
+
     return (
-        <header className="text-[#f7fafc] font-['Poppins'] py-4 px-6 flex justify-between items-center relative z-50">
+        <header
+            className={`py-4 px-6 flex justify-between items-center relative z-50 bg-transparent text-inherit`}
+        >
             {/* Logo */}
             <div className="flex items-center gap-2">
                 <Link href="/" className="focus:outline-none">
@@ -36,17 +47,31 @@ export default function Header() {
             </div>
 
             {/* Navigation - Desktop */}
-            <nav className="hidden md:flex gap-x-8 text-md uppercase font-semibold">
-                {menuItems.map((item) => (
-                    <Link
-                        key={item.id}
-                        href={item.link}
-                        className="hover:text-[#ffeedc] focus:outline-none"
-                    >
-                        {item.label}
-                    </Link>
-                ))}
-            </nav>
+            <div className="flex items-center justify-between w-full">
+                {/* Menu */}
+                <nav className={`hidden md:flex gap-x-8 text-md uppercase font-semibold ml-auto ${theme === 'dark' ? 'text-white' : ''}`}>
+                    {menuItems.map((item) => (
+                        <Link
+                            key={item.id}
+                            href={item.link}
+                            className="hover:text-[#ffeedc] focus:outline-none"
+                        >
+                            {item.label}
+                        </Link>
+                    ))}
+                </nav>
+
+                {/* Dark Mode Toggle (Icon) */}
+                {/* This button will be hidden on mobile, only visible on larger screens */}
+                <div className="hidden md:flex items-center gap-x-4 ml-4 cursor-pointer" onClick={handleThemeToggle}>
+                    <Image
+                        src={theme === "light" ? SunIcon : MoonIcon}
+                        alt="Toggle Dark Mode"
+                        width={30}
+                        height={30}
+                    />
+                </div>
+            </div>
 
             {/* Mobile Menu Icon */}
             <div className="md:hidden">
@@ -57,17 +82,13 @@ export default function Header() {
 
             {/* Background Overlay */}
             <div
-                className={`fixed inset-0 bg-black bg-opacity-50 z-40 transition-opacity duration-500 ${
-                    menuOpen ? "opacity-100" : "opacity-0 pointer-events-none"
-                }`}
+                className={`fixed inset-0 bg-black bg-opacity-50 z-40 transition-opacity duration-500 ${menuOpen ? "opacity-100" : "opacity-0 pointer-events-none"}`}
                 onClick={() => setMenuOpen(false)}
             ></div>
 
             {/* Mobile Sidebar Menu */}
             <div
-                className={`fixed top-0 left-0 w-3/4 h-full bg-[#1a202c] text-[#f7fafc] flex flex-col items-center justify-center gap-y-6 z-50 shadow-lg transition-transform duration-500 ${
-                    menuOpen ? "translate-x-0" : "-translate-x-full"
-                }`}
+                className={`fixed top-0 left-0 w-3/4 h-full ${theme === 'light' ? 'bg-gradient-to-r from-[#FFD700] via-[#FFCBA4] to-[#FFB6C1]' : 'bg-gradient-to-r from-[#2d3748] via-[#4a5568] to-[#2b2b2b]'} text-[#f7fafc] flex flex-col items-center justify-center gap-y-6 z-50 shadow-lg transition-transform duration-500 ${menuOpen ? "translate-x-0" : "-translate-x-full"}`}
             >
                 {/* Close Button */}
                 <button onClick={() => setMenuOpen(false)} className="absolute top-4 right-4">
@@ -85,6 +106,17 @@ export default function Header() {
                         {item.label}
                     </Link>
                 ))}
+
+                {/* Dark Mode Toggle for Mobile Menu */}
+                {/* This button will only appear in the mobile sidebar */}
+                <div className="mt-4 flex items-center justify-center gap-x-4 cursor-pointer" onClick={handleThemeToggle}>
+                    <Image
+                        src={theme === "light" ? SunIcon : MoonIcon}
+                        alt="Toggle Dark Mode"
+                        width={30}
+                        height={30}
+                    />
+                </div>
             </div>
         </header>
     );

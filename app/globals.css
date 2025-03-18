@@ -15,19 +15,27 @@
   --mb-1: 1rem;
   --z-fixed: 1000;
 }
+
 @media screen and (min-width: 968px) {
-:root {
-  --big-font-size: 3rem;
+  :root {
+    --big-font-size: 3rem;
+  }
 }
-}
+
 body.dark {
-  --first-color: #0C0C1E;
+  --first-color: #2d3748; /* Lighter dark color */
+  background: linear-gradient(135deg, #2d3748, #4a5568, #2b2b2b, #4a4a4a, #2b2b2b); 
+  background-size: 300% 300%;
+  animation: gradient-animation-dark 9s ease infinite;
 }
+
+
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
+
 html, body {
   margin: 0;
   padding: 0;
@@ -45,7 +53,6 @@ html, body {
   min-height: 100vh; 
 }
 
-
 main {
   flex: 1; 
 }
@@ -56,7 +63,6 @@ footer {
   padding: 10px;
 }
 
-
 body {
   background: linear-gradient(
     135deg,
@@ -65,10 +71,9 @@ body {
     #e95a2b, 
     #df70d6,
     #FFB6C1
-);
-
+  );
   background-size: 300% 300%; 
-  animation: gradient-animation 20s ease infinite;
+  animation: gradient-animation 9s ease infinite;
   color: #333; 
   font-family: 'Poppins', sans-serif;
   min-height: 100vh;
@@ -76,9 +81,21 @@ body {
   padding: 0;
 }
 
-
-/* Dynamic Gradient Animation */
+/* Light Gradient Animation */
 @keyframes gradient-animation {
+  0% {
+      background-position: 0% 50%;
+  }
+  50% {
+      background-position: 100% 50%;
+  }
+  100% {
+      background-position: 0% 50%;
+  }
+}
+
+/* Dark Gradient Animation */
+@keyframes gradient-animation-dark {
   0% {
       background-position: 0% 50%;
   }
@@ -102,7 +119,6 @@ body {
 .rotate-y-180 {
   transform: rotateY(180deg);
 }
-
 
 .clip-irregular {
   clip-path: polygon(20% 0%, 100% 0%, 80% 100%, 0% 100%);

@@ -4,7 +4,7 @@ import Image from "next/image";
 
 export default function ThemeSection() {
     return (
-        <div className="py-10 px-8 flex flex-col lg:flex-row items-center lg:items-start gap-8 ">
+        <div className="py-10 px-8 flex flex-col lg:flex-row items-center lg:items-start gap-8 text-white">
             {/* Text Content */}
             <div className="max-w-lg text-center lg:text-left">
                 <h2 className="text-3xl font-bold mb-4">This Year’s Theme</h2>
