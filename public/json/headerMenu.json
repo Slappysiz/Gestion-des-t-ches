@@ -1,7 +1,0 @@
-[
-    { "id": 1, "label": "Home", "link": "/" },
-    { "id": 2, "label": "Lineup", "link": "/lineup" },
-    { "id": 3, "label": "About Us", "link": "/about" },
-    { "id": 4, "label": "Contact", "link": "/contact" }
-  ]
-  
