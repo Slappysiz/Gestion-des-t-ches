@@ -1,0 +1,121 @@
+<div class="bg-white shadow overflow-hidden sm:rounded-lg">
+    <div class="px-4 py-5 sm:px-6">
+        <h2 class="text-lg leading-6 font-medium text-gray-900">
+            {{#if task.id}}
+                Modifier la tâche
+            {{else}}
+                Créer une nouvelle tâche
+            {{/if}}
+        </h2>
+        <p class="mt-1 max-w-2xl text-sm text-gray-500">
+            Renseignez les informations ci-dessous pour {{#if task.id}}modifier{{else}}créer{{/if}} la tâche.
+        </p>
+    </div>
+
+    <div class="border-t border-gray-200">
+        <form action="{{action}}" method="POST" class="space-y-6 sm:space-y-5 px-4 py-5 sm:p-6">
+            <!-- Titre -->
+            <div class="sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start">
+                <label for="title" class="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2">
+                    Titre <span class="text-red-500">*</span>
+                </label>
+                <div class="mt-1 sm:mt-0 sm:col-span-2">
+                    <input type="text" name="title" id="title" value="{{task.title}}" required
+                           class="max-w-lg block w-full shadow-sm focus:ring-primary-500 focus:border-primary-500 sm:max-w-xs sm:text-sm border-gray-300 rounded-md">
+                    {{#if errors.title}}
+                        <p class="mt-2 text-sm text-red-600">{{errors.title}}</p>
+                    {{/if}}
+                </div>
+            </div>
+
+            <!-- Description -->
+            <div class="sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start">
+                <label for="description" class="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2">
+                    Description
+                </label>
+                <div class="mt-1 sm:mt-0 sm:col-span-2">
+                    <textarea id="description" name="description" rows="4"
+                              class="max-w-lg shadow-sm block w-full focus:ring-primary-500 focus:border-primary-500 sm:text-sm border-gray-300 rounded-md">{{task.description}}</textarea>
+                    <p class="mt-2 text-sm text-gray-500">Une brève description de la tâche</p>
+                    {{#if errors.description}}
+                        <p class="mt-2 text-sm text-red-600">{{errors.description}}</p>
+                    {{/if}}
+                </div>
+            </div>
+
+            <!-- Priorité -->
+            <div class="sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start">
+                <label for="priority" class="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2">
+                    Priorité
+                </label>
+                <div class="mt-1 sm:mt-0 sm:col-span-2">
+                    <select id="priority" name="priority"
+                            class="max-w-lg block focus:ring-primary-500 focus:border-primary-500 w-full shadow-sm sm:max-w-xs sm:text-sm border-gray-300 rounded-md">
+                        {{#each priorities}}
+                            <option value="{{this}}" {{#if (equals ../task.priority this)}}selected{{/if}}>
+                                {{this}}
+                            </option>
+                        {{/each}}
+                    </select>
+                    {{#if errors.priority}}
+                        <p class="mt-2 text-sm text-red-600">{{errors.priority}}</p>
+                    {{/if}}
+                </div>
+            </div>
+
+            <!-- Statut -->
+            <div class="sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start">
+                <label for="status" class="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2">
+                    Statut
+                </label>
+                <div class="mt-1 sm:mt-0 sm:col-span-2">
+                    <select id="status" name="status"
+                            class="max-w-lg block focus:ring-primary-500 focus:border-primary-500 w-full shadow-sm sm:max-w-xs sm:text-sm border-gray-300 rounded-md">
+                        {{#each statuses}}
+                            <option value="{{this}}" {{#if (equals ../task.status this)}}selected{{/if}}>
+                                {{this}}
+                            </option>
+                        {{/each}}
+                    </select>
+                    {{#if errors.status}}
+                        <p class="mt-2 text-sm text-red-600">{{errors.status}}</p>
+                    {{/if}}
+                </div>
+            </div>
+
+            <!-- Date limite -->
+            <div class="sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start">
+                <label for="dueDate" class="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2">
+                    Date limite
+                </label>
+                <div class="mt-1 sm:mt-0 sm:col-span-2">
+                    <input type="date" name="dueDate" id="dueDate"
+                           {{#if task.dueDate}}value="{{formatDateInput task.dueDate}}"{{/if}}
+                           class="max-w-lg block w-full shadow-sm focus:ring-primary-500 focus:border-primary-500 sm:max-w-xs sm:text-sm border-gray-300 rounded-md">
+                    <p class="mt-2 text-sm text-gray-500">La date limite pour terminer la tâche</p>
+                    {{#if errors.dueDate}}
+                        <p class="mt-2 text-sm text-red-600">{{errors.dueDate}}</p>
+                    {{/if}}
+                </div>
+            </div>
+
+            <!-- Boutons d'action -->
+            <div class="pt-5">
+                <div class="flex justify-end">
+                    <a href="{{#if task.id}}/tasks/{{task.id}}{{else}}/tasks{{/if}}"
+                       class="bg-white py-2 px-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500">
+                        Annuler
+                    </a>
+                    <button type="submit"
+                            class="ml-3 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-primary-600 hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500">
+                        {{#if task.id}}
+                            Sauvegarder
+                        {{else}}
+                            Créer
+                        {{/if}}
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
