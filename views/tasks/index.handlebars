@@ -1,440 +1,456 @@
 <div class="space-y-6">
-    <!-- En-tête avec le titre et bouton d'ajout -->
-    <div class="flex justify-between items-center">
-        <h1 class="text-2xl font-bold text-gray-900">Tableau des tâches</h1>
-        <a href="/tasks/create" class="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-primary-600 hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500 transition-colors">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
-                <path fill-rule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clip-rule="evenodd" />
-            </svg>
-            Nouvelle tâche
+  <!-- En-tête avec le titre et bouton d'ajout -->
+  <div class="flex justify-between items-center">
+    <h1 class="text-2xl font-bold text-gray-900">Tableau des tâches</h1>
+    <a href="/tasks/create" class="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-colors">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
+        <path fill-rule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clip-rule="evenodd" />
+      </svg>
+      Nouvelle tâche
+    </a>
+  </div>
+
+  <!-- Formulaire de filtrage -->
+  <div class="bg-white rounded-lg shadow p-4">
+    <form action="/tasks" method="GET" class="flex flex-wrap items-center gap-4">
+      <!-- Filtrer par priorité -->
+      <div>
+        <label for="priority" class="block text-sm font-medium text-gray-700">Priorité</label>
+        <select name="priority" id="priority" class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md">
+          <option value="">Toutes les priorités</option>
+          {{#each priorities}}
+            <option value="{{this}}" {{#if (equals ../filter.priority this)}}selected{{/if}}>
+              {{this}}
+            </option>
+          {{/each}}
+        </select>
+      </div>
+
+      <!-- Filtrer par statut -->
+      <div>
+        <label for="status" class="block text-sm font-medium text-gray-700">Statut</label>
+        <select name="status" id="status" class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md">
+          <option value="">Tous les statuts</option>
+          <option value="A_FAIRE" {{#if (equals filter.status "A_FAIRE")}}selected{{/if}}>À faire</option>
+          <option value="EN_COURS" {{#if (equals filter.status "EN_COURS")}}selected{{/if}}>En cours</option>
+          <option value="EN_REVISION" {{#if (equals filter.status "EN_REVISION")}}selected{{/if}}>En révision</option>
+          <option value="TERMINEE" {{#if (equals filter.status "TERMINEE")}}selected{{/if}}>Terminée</option>
+        </select>
+      </div>
+
+      <!-- Trier par -->
+      <div>
+        <label for="sortBy" class="block text-sm font-medium text-gray-700">Trier par</label>
+        <select name="sortBy" id="sortBy" class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md">
+          <option value="createdAt" {{#if (equals sort.field "createdAt")}}selected{{/if}}>Date de création</option>
+          <option value="dueDate" {{#if (equals sort.field "dueDate")}}selected{{/if}}>Date limite</option>
+        </select>
+      </div>
+
+      <!-- Ordre de tri -->
+      <div>
+        <label for="sortDirection" class="block text-sm font-medium text-gray-700">Ordre</label>
+        <select name="sortDirection" id="sortDirection" class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md">
+          <option value="asc" {{#if (equals sort.direction "asc")}}selected{{/if}}>Croissant</option>
+          <option value="desc" {{#if (equals sort.direction "desc")}}selected{{/if}}>Décroissant</option>
+        </select>
+      </div>
+
+      <!-- Boutons -->
+      <div class="mt-4">
+        <button type="submit" class="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M3 3a1 1 0 011-1h12a1 1 0 011 1v3a1 1 0 01-.293.707L12 11.414V15a1 1 0 01-.293.707l-2 2A1 1 0 018 17v-5.586L3.293 6.707A1 1 0 013 6V3z" clip-rule="evenodd" />
+          </svg>
+          Filtrer
+        </button>
+        <a href="/tasks" class="ml-2 inline-flex items-center px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+          Réinitialiser
         </a>
-    </div>
+      </div>
+    </form>
+  </div>
 
-    <!-- Filtres et tris -->
-    <div class="bg-white rounded-lg shadow p-4 mb-6">
-        <form action="/" method="GET" class="flex flex-wrap items-center gap-4">
-            <div>
-                <label for="priority" class="block text-sm font-medium text-gray-700">Priorité</label>
-                <select name="priority" id="priority" class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-primary-500 focus:border-primary-500 sm:text-sm rounded-md">
-                    <option value="">Toutes les priorités</option>
-                    {{#each priorities}}
-                        <option value="{{this}}" {{#if (equals ../filter.priority this)}}selected{{/if}}>
-                            {{this}}
-                        </option>
-                    {{/each}}
-                </select>
-            </div>
-
-            <div>
-                <label for="sortBy" class="block text-sm font-medium text-gray-700">Trier par</label>
-                <select name="sortBy" id="sortBy" class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-primary-500 focus:border-primary-500 sm:text-sm rounded-md">
-                    <option value="createdAt" {{#if (equals sort.field "createdAt")}}selected{{/if}}>Date de création</option>
-                    <option value="dueDate" {{#if (equals sort.field "dueDate")}}selected{{/if}}>Date limite</option>
-                </select>
-            </div>
-
-            <div>
-                <label for="sortDirection" class="block text-sm font-medium text-gray-700">Ordre</label>
-                <select name="sortDirection" id="sortDirection" class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-primary-500 focus:border-primary-500 sm:text-sm rounded-md">
-                    <option value="asc" {{#if (equals sort.direction "asc")}}selected{{/if}}>Croissant</option>
-                    <option value="desc" {{#if (equals sort.direction "desc")}}selected{{/if}}>Décroissant</option>
-                </select>
-            </div>
-
-            <div class="mt-4">
-                <button type="submit" class="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-primary-600 hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
-                        <path fill-rule="evenodd" d="M3 3a1 1 0 011-1h12a1 1 0 011 1v3a1 1 0 01-.293.707L12 11.414V15a1 1 0 01-.293.707l-2 2A1 1 0 018 17v-5.586L3.293 6.707A1 1 0 013 6V3z" clip-rule="evenodd" />
-                    </svg>
-                    Filtrer
-                </button>
-                <a href="/" class="ml-2 inline-flex items-center px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500">
-                    Réinitialiser
-                </a>
-            </div>
-        </form>
-    </div>
-
-    <!-- Tableau Kanban - interface Trello-like -->
-    <div class="overflow-x-auto pb-6">
-        <div class="flex space-x-6 min-w-max">
-            <!-- Colonne "À faire" -->
-            <div class="w-80 flex-shrink-0">
-                <div class="bg-gray-100 rounded-t-lg px-4 py-3 border-b border-gray-200">
-                    <h2 class="text-lg font-medium text-gray-900 flex items-center">
-                        <span class="w-3 h-3 bg-gray-500 rounded-full mr-2"></span>
-                        À faire
-                        <span class="ml-2 text-sm font-normal text-gray-500">({{tasksByStatus.A_FAIRE.length}})</span>
-                    </h2>
-                </div>
-                <div class="bg-gray-100 p-2 rounded-b-lg h-[calc(100vh-280px)] overflow-y-auto space-y-2" id="column-A_FAIRE" data-status="A_FAIRE">
-                    {{#each tasksByStatus.A_FAIRE}}
-                        <div class="task-card bg-white border border-gray-200 rounded-lg p-3 shadow-sm hover:shadow-md transition-shadow cursor-pointer" data-id="{{id}}" data-status="{{status}}">
-                            <div class="flex justify-between items-start">
-                                <h3 class="text-sm font-medium text-gray-900 flex-grow">{{title}}</h3>
-                                <span class="ml-2 px-2 py-1 text-xs {{priorityClass priority}} rounded-full">{{priority}}</span>
-                            </div>
-                            {{#if description}}
-                                <p class="mt-1 text-xs text-gray-500 line-clamp-2">{{description}}</p>
-                            {{/if}}
-                            {{#if dueDate}}
-                                <div class="mt-2 flex items-center text-xs text-gray-500" data-due-date="{{dueDate}}">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                                    </svg>
-                                    <span>{{formatDate dueDate}}</span>
-                                </div>
-                            {{/if}}
-                            <div class="mt-2 flex justify-between">
-                                <a href="/tasks/{{id}}" class="text-xs text-primary-600 hover:text-primary-800">Détails</a>
-                                <a href="/tasks/{{id}}/edit" class="text-xs text-gray-600 hover:text-gray-800">Modifier</a>
-                            </div>
-                        </div>
-                    {{else}}
-                        <div class="text-center py-8 text-gray-400 bg-white rounded-lg border border-dashed border-gray-300">
-                            <p>Aucune tâche à faire</p>
-                            <p class="text-xs mt-1">Glissez des tâches ici</p>
-                        </div>
-                    {{/each}}
-                </div>
-            </div>
-
-            <!-- Colonne "En cours" -->
-            <div class="w-80 flex-shrink-0">
-                <div class="bg-blue-100 rounded-t-lg px-4 py-3 border-b border-gray-200">
-                    <h2 class="text-lg font-medium text-gray-900 flex items-center">
-                        <span class="w-3 h-3 bg-blue-500 rounded-full mr-2"></span>
-                        En cours
-                        <span class="ml-2 text-sm font-normal text-gray-500">({{tasksByStatus.EN_COURS.length}})</span>
-                    </h2>
-                </div>
-                <div class="bg-blue-50 p-2 rounded-b-lg h-[calc(100vh-280px)] overflow-y-auto space-y-2" id="column-EN_COURS" data-status="EN_COURS">
-                    {{#each tasksByStatus.EN_COURS}}
-                        <div class="task-card bg-white border border-gray-200 rounded-lg p-3 shadow-sm hover:shadow-md transition-shadow cursor-pointer" data-id="{{id}}" data-status="{{status}}">
-                            <div class="flex justify-between items-start">
-                                <h3 class="text-sm font-medium text-gray-900 flex-grow">{{title}}</h3>
-                                <span class="ml-2 px-2 py-1 text-xs {{priorityClass priority}} rounded-full">{{priority}}</span>
-                            </div>
-                            {{#if description}}
-                                <p class="mt-1 text-xs text-gray-500 line-clamp-2">{{description}}</p>
-                            {{/if}}
-                            {{#if dueDate}}
-                                <div class="mt-2 flex items-center text-xs text-gray-500" data-due-date="{{dueDate}}">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                                    </svg>
-                                    <span>{{formatDate dueDate}}</span>
-                                </div>
-                            {{/if}}
-                            <div class="mt-2 flex justify-between">
-                                <a href="/tasks/{{id}}" class="text-xs text-primary-600 hover:text-primary-800">Détails</a>
-                                <a href="/tasks/{{id}}/edit" class="text-xs text-gray-600 hover:text-gray-800">Modifier</a>
-                            </div>
-                        </div>
-                    {{else}}
-                        <div class="text-center py-8 text-gray-400 bg-white rounded-lg border border-dashed border-gray-300">
-                            <p>Aucune tâche en cours</p>
-                            <p class="text-xs mt-1">Glissez des tâches ici</p>
-                        </div>
-                    {{/each}}
-                </div>
-            </div>
-
-            <!-- Colonne "En révision" -->
-            <div class="w-80 flex-shrink-0">
-                <div class="bg-purple-100 rounded-t-lg px-4 py-3 border-b border-gray-200">
-                    <h2 class="text-lg font-medium text-gray-900 flex items-center">
-                        <span class="w-3 h-3 bg-purple-500 rounded-full mr-2"></span>
-                        En révision
-                        <span class="ml-2 text-sm font-normal text-gray-500">({{tasksByStatus.EN_REVISION.length}})</span>
-                    </h2>
-                </div>
-                <div class="bg-purple-50 p-2 rounded-b-lg h-[calc(100vh-280px)] overflow-y-auto space-y-2" id="column-EN_REVISION" data-status="EN_REVISION">
-                    {{#each tasksByStatus.EN_REVISION}}
-                        <div class="task-card bg-white border border-gray-200 rounded-lg p-3 shadow-sm hover:shadow-md transition-shadow cursor-pointer" data-id="{{id}}" data-status="{{status}}">
-                            <div class="flex justify-between items-start">
-                                <h3 class="text-sm font-medium text-gray-900 flex-grow">{{title}}</h3>
-                                <span class="ml-2 px-2 py-1 text-xs {{priorityClass priority}} rounded-full">{{priority}}</span>
-                            </div>
-                            {{#if description}}
-                                <p class="mt-1 text-xs text-gray-500 line-clamp-2">{{description}}</p>
-                            {{/if}}
-                            {{#if dueDate}}
-                                <div class="mt-2 flex items-center text-xs text-gray-500" data-due-date="{{dueDate}}">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                                    </svg>
-                                    <span>{{formatDate dueDate}}</span>
-                                </div>
-                            {{/if}}
-                            <div class="mt-2 flex justify-between">
-                                <a href="/tasks/{{id}}" class="text-xs text-primary-600 hover:text-primary-800">Détails</a>
-                                <a href="/tasks/{{id}}/edit" class="text-xs text-gray-600 hover:text-gray-800">Modifier</a>
-                            </div>
-                        </div>
-                    {{else}}
-                        <div class="text-center py-8 text-gray-400 bg-white rounded-lg border border-dashed border-gray-300">
-                            <p>Aucune tâche en révision</p>
-                            <p class="text-xs mt-1">Glissez des tâches ici</p>
-                        </div>
-                    {{/each}}
-                </div>
-            </div>
-
-            <!-- Colonne "Terminée" -->
-            <div class="w-80 flex-shrink-0">
-                <div class="bg-green-100 rounded-t-lg px-4 py-3 border-b border-gray-200">
-                    <h2 class="text-lg font-medium text-gray-900 flex items-center">
-                        <span class="w-3 h-3 bg-green-500 rounded-full mr-2"></span>
-                        Terminée
-                        <span class="ml-2 text-sm font-normal text-gray-500">({{tasksByStatus.TERMINEE.length}})</span>
-                    </h2>
-                </div>
-                <div class="bg-green-50 p-2 rounded-b-lg h-[calc(100vh-280px)] overflow-y-auto space-y-2" id="column-TERMINEE" data-status="TERMINEE">
-                    {{#each tasksByStatus.TERMINEE}}
-                        <div class="task-card bg-white border border-gray-200 rounded-lg p-3 shadow-sm hover:shadow-md transition-shadow cursor-pointer" data-id="{{id}}" data-status="{{status}}">
-                            <div class="flex justify-between items-start">
-                                <h3 class="text-sm font-medium text-gray-900 flex-grow">{{title}}</h3>
-                                <span class="ml-2 px-2 py-1 text-xs {{priorityClass priority}} rounded-full">{{priority}}</span>
-                            </div>
-                            {{#if description}}
-                                <p class="mt-1 text-xs text-gray-500 line-clamp-2">{{description}}</p>
-                            {{/if}}
-                            {{#if dueDate}}
-                                <div class="mt-2 flex items-center text-xs text-gray-500" data-due-date="{{dueDate}}">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                                    </svg>
-                                    <span>{{formatDate dueDate}}</span>
-                                </div>
-                            {{/if}}
-                            <div class="mt-2 flex justify-between">
-                                <a href="/tasks/{{id}}" class="text-xs text-primary-600 hover:text-primary-800">Détails</a>
-                                <a href="/tasks/{{id}}/edit" class="text-xs text-gray-600 hover:text-gray-800">Modifier</a>
-                            </div>
-                        </div>
-                    {{else}}
-                        <div class="text-center py-8 text-gray-400 bg-white rounded-lg border border-dashed border-gray-300">
-                            <p>Aucune tâche terminée</p>
-                            <p class="text-xs mt-1">Glissez des tâches ici</p>
-                        </div>
-                    {{/each}}
-                </div>
-            </div>
+  <!-- Section de statistiques -->
+  <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
+    <!-- À faire -->
+    <div class="bg-white rounded-lg p-4 flex items-center space-x-3 shadow">
+      <div class="h-10 w-10 rounded-full bg-gray-200 flex items-center justify-center">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01"/>
+        </svg>
+      </div>
+      <div>
+        <div class="text-sm text-gray-400">À faire</div>
+        <div class="text-lg font-bold text-gray-800">
+          {{tasksByStatus.A_FAIRE.length}}
         </div>
+      </div>
     </div>
+
+    <!-- En cours -->
+    <div class="bg-white rounded-lg p-4 flex items-center space-x-3 shadow">
+      <div class="h-10 w-10 rounded-full bg-blue-100 flex items-center justify-center">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path d="M2 12h.01M12 2v.01M20 12h.01M12 20h.01M8 12h8"/>
+        </svg>
+      </div>
+      <div>
+        <div class="text-sm text-gray-400">En cours</div>
+        <div class="text-lg font-bold text-gray-800">
+          {{tasksByStatus.EN_COURS.length}}
+        </div>
+      </div>
+    </div>
+
+    <!-- En révision -->
+    <div class="bg-white rounded-lg p-4 flex items-center space-x-3 shadow">
+      <div class="h-10 w-10 rounded-full bg-purple-100 flex items-center justify-center">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-purple-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path d="M12 8v4l3 3m6-8a9 9 0 11-18 0 9 9 0 0118 0z"/>
+        </svg>
+      </div>
+      <div>
+        <div class="text-sm text-gray-400">En révision</div>
+        <div class="text-lg font-bold text-gray-800">
+          {{tasksByStatus.EN_REVISION.length}}
+        </div>
+      </div>
+    </div>
+
+    <!-- Terminées -->
+    <div class="bg-white rounded-lg p-4 flex items-center space-x-3 shadow">
+      <div class="h-10 w-10 rounded-full bg-green-100 flex items-center justify-center">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path d="M5 13l4 4L19 7"/>
+        </svg>
+      </div>
+      <div>
+        <div class="text-sm text-gray-400">Terminées</div>
+        <div class="text-lg font-bold text-gray-800">
+          {{tasksByStatus.TERMINEE.length}}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Tableau Kanban - interface Trello-like -->
+  <div class="overflow-x-auto pb-6 mt-6">
+    <div class="flex space-x-6 min-w-max">
+      <!-- Colonne "À faire" -->
+      <div class="w-80 flex-shrink-0">
+        <div class="bg-gray-100 rounded-t-lg px-4 py-3 border-b border-gray-200">
+          <h2 class="text-lg font-medium text-gray-900 flex items-center">
+            <span class="w-3 h-3 bg-gray-500 rounded-full mr-2"></span>
+            À faire
+            <span class="ml-2 text-sm font-normal text-gray-500">({{tasksByStatus.A_FAIRE.length}})</span>
+          </h2>
+        </div>
+        <div class="bg-gray-50 p-2 rounded-b-lg h-[calc(100vh-280px)] overflow-y-auto space-y-2" id="column-A_FAIRE" data-status="A_FAIRE">
+          {{#if tasksByStatus.A_FAIRE.length}}
+            {{#each tasksByStatus.A_FAIRE}}
+              <div class="task-card bg-white border border-gray-200 rounded-lg p-3 shadow-sm hover:shadow-md transition-shadow cursor-pointer" data-id="{{id}}" data-status="{{status}}">
+                <div class="flex justify-between items-start">
+                  <h3 class="text-sm font-medium text-gray-900 flex-grow">{{title}}</h3>
+                  <span class="ml-2 px-2 py-1 text-xs {{priorityClass priority}} rounded-full">{{priority}}</span>
+                </div>
+                {{#if description}}
+                  <p class="mt-1 text-xs text-gray-500 line-clamp-2">{{description}}</p>
+                {{/if}}
+                {{#if dueDate}}
+                  <div class="mt-2 flex items-center text-xs text-gray-500" data-due-date="{{dueDate}}">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                    </svg>
+                    <span>{{formatDate dueDate}}</span>
+                  </div>
+                {{/if}}
+                <div class="mt-2 flex justify-between">
+                  <a href="/tasks/{{id}}" class="text-xs text-indigo-600 hover:text-indigo-800">Détails</a>
+                  <a href="/tasks/{{id}}/edit" class="text-xs text-gray-600 hover:text-gray-800">Modifier</a>
+                </div>
+              </div>
+            {{/each}}
+          {{else}}
+            <div class="text-center py-8 text-gray-400 bg-white rounded-lg border border-dashed border-gray-300">
+              <p>Aucune tâche à faire</p>
+              <p class="text-xs mt-1">Glissez des tâches ici</p>
+            </div>
+          {{/if}}
+        </div>
+      </div>
+
+      <!-- Colonne "En cours" -->
+      <div class="w-80 flex-shrink-0">
+        <div class="bg-blue-100 rounded-t-lg px-4 py-3 border-b border-gray-200">
+          <h2 class="text-lg font-medium text-gray-900 flex items-center">
+            <span class="w-3 h-3 bg-blue-500 rounded-full mr-2"></span>
+            En cours
+            <span class="ml-2 text-sm font-normal text-gray-500">({{tasksByStatus.EN_COURS.length}})</span>
+          </h2>
+        </div>
+        <div class="bg-blue-50 p-2 rounded-b-lg h-[calc(100vh-280px)] overflow-y-auto space-y-2" id="column-EN_COURS" data-status="EN_COURS">
+          {{#if tasksByStatus.EN_COURS.length}}
+            {{#each tasksByStatus.EN_COURS}}
+              <div class="task-card bg-white border border-gray-200 rounded-lg p-3 shadow-sm hover:shadow-md transition-shadow cursor-pointer" data-id="{{id}}" data-status="{{status}}">
+                <div class="flex justify-between items-start">
+                  <h3 class="text-sm font-medium text-gray-900 flex-grow">{{title}}</h3>
+                  <span class="ml-2 px-2 py-1 text-xs {{priorityClass priority}} rounded-full">{{priority}}</span>
+                </div>
+                {{#if description}}
+                  <p class="mt-1 text-xs text-gray-500 line-clamp-2">{{description}}</p>
+                {{/if}}
+                {{#if dueDate}}
+                  <div class="mt-2 flex items-center text-xs text-gray-500" data-due-date="{{dueDate}}">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                    </svg>
+                    <span>{{formatDate dueDate}}</span>
+                  </div>
+                {{/if}}
+                <div class="mt-2 flex justify-between">
+                  <a href="/tasks/{{id}}" class="text-xs text-indigo-600 hover:text-indigo-800">Détails</a>
+                  <a href="/tasks/{{id}}/edit" class="text-xs text-gray-600 hover:text-gray-800">Modifier</a>
+                </div>
+              </div>
+            {{/each}}
+          {{else}}
+            <div class="text-center py-8 text-gray-400 bg-white rounded-lg border border-dashed border-gray-300">
+              <p>Aucune tâche en cours</p>
+              <p class="text-xs mt-1">Glissez des tâches ici</p>
+            </div>
+          {{/if}}
+        </div>
+      </div>
+
+      <!-- Colonne "En révision" -->
+      <div class="w-80 flex-shrink-0">
+        <div class="bg-purple-100 rounded-t-lg px-4 py-3 border-b border-gray-200">
+          <h2 class="text-lg font-medium text-gray-900 flex items-center">
+            <span class="w-3 h-3 bg-purple-500 rounded-full mr-2"></span>
+            En révision
+            <span class="ml-2 text-sm font-normal text-gray-500">({{tasksByStatus.EN_REVISION.length}})</span>
+          </h2>
+        </div>
+        <div class="bg-purple-50 p-2 rounded-b-lg h-[calc(100vh-280px)] overflow-y-auto space-y-2" id="column-EN_REVISION" data-status="EN_REVISION">
+          {{#if tasksByStatus.EN_REVISION.length}}
+            {{#each tasksByStatus.EN_REVISION}}
+              <div class="task-card bg-white border border-gray-200 rounded-lg p-3 shadow-sm hover:shadow-md transition-shadow cursor-pointer" data-id="{{id}}" data-status="{{status}}">
+                <div class="flex justify-between items-start">
+                  <h3 class="text-sm font-medium text-gray-900 flex-grow">{{title}}</h3>
+                  <span class="ml-2 px-2 py-1 text-xs {{priorityClass priority}} rounded-full">{{priority}}</span>
+                </div>
+                {{#if description}}
+                  <p class="mt-1 text-xs text-gray-500 line-clamp-2">{{description}}</p>
+                {{/if}}
+                {{#if dueDate}}
+                  <div class="mt-2 flex items-center text-xs text-gray-500" data-due-date="{{dueDate}}">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                    </svg>
+                    <span>{{formatDate dueDate}}</span>
+                  </div>
+                {{/if}}
+                <div class="mt-2 flex justify-between">
+                  <a href="/tasks/{{id}}" class="text-xs text-indigo-600 hover:text-indigo-800">Détails</a>
+                  <a href="/tasks/{{id}}/edit" class="text-xs text-gray-600 hover:text-gray-800">Modifier</a>
+                </div>
+              </div>
+            {{/each}}
+          {{else}}
+            <div class="text-center py-8 text-gray-400 bg-white rounded-lg border border-dashed border-gray-300">
+              <p>Aucune tâche en révision</p>
+              <p class="text-xs mt-1">Glissez des tâches ici</p>
+            </div>
+          {{/if}}
+        </div>
+      </div>
+
+      <!-- Colonne "Terminée" -->
+      <div class="w-80 flex-shrink-0">
+        <div class="bg-green-100 rounded-t-lg px-4 py-3 border-b border-gray-200">
+          <h2 class="text-lg font-medium text-gray-900 flex items-center">
+            <span class="w-3 h-3 bg-green-500 rounded-full mr-2"></span>
+            Terminée
+            <span class="ml-2 text-sm font-normal text-gray-500">({{tasksByStatus.TERMINEE.length}})</span>
+          </h2>
+        </div>
+        <div class="bg-green-50 p-2 rounded-b-lg h-[calc(100vh-280px)] overflow-y-auto space-y-2" id="column-TERMINEE" data-status="TERMINEE">
+          {{#if tasksByStatus.TERMINEE.length}}
+            {{#each tasksByStatus.TERMINEE}}
+              <div class="task-card bg-white border border-gray-200 rounded-lg p-3 shadow-sm hover:shadow-md transition-shadow cursor-pointer" data-id="{{id}}" data-status="{{status}}">
+                <div class="flex justify-between items-start">
+                  <h3 class="text-sm font-medium text-gray-900 flex-grow">{{title}}</h3>
+                  <span class="ml-2 px-2 py-1 text-xs {{priorityClass priority}} rounded-full">{{priority}}</span>
+                </div>
+                {{#if description}}
+                  <p class="mt-1 text-xs text-gray-500 line-clamp-2">{{description}}</p>
+                {{/if}}
+                {{#if dueDate}}
+                  <div class="mt-2 flex items-center text-xs text-gray-500" data-due-date="{{dueDate}}">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                    </svg>
+                    <span>{{formatDate dueDate}}</span>
+                  </div>
+                {{/if}}
+                <div class="mt-2 flex justify-between">
+                  <a href="/tasks/{{id}}" class="text-xs text-indigo-600 hover:text-indigo-800">Détails</a>
+                  <a href="/tasks/{{id}}/edit" class="text-xs text-gray-600 hover:text-gray-800">Modifier</a>
+                </div>
+              </div>
+            {{/each}}
+          {{else}}
+            <div class="text-center py-8 text-gray-400 bg-white rounded-lg border border-dashed border-gray-300">
+              <p>Aucune tâche terminée</p>
+              <p class="text-xs mt-1">Glissez des tâches ici</p>
+            </div>
+          {{/if}}
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 
 <style>
-    /* Styles pour le mode drag-and-drop */
-    .task-card {
-        transition: transform 0.2s ease, opacity 0.2s ease, box-shadow 0.2s ease;
-    }
+  /* Styles pour le mode drag-and-drop */
+  .task-card {
+    transition: transform 0.2s ease, opacity 0.2s ease, box-shadow 0.2s ease;
+  }
 
-    .task-card.is-dragging {
-        border: 2px dashed #3b82f6 !important;
-        background-color: rgba(255, 255, 255, 0.8) !important;
-    }
+  .task-card.is-dragging {
+    border: 2px dashed #3b82f6 !important;
+    background-color: rgba(255, 255, 255, 0.8) !important;
+  }
 
-    /* Limite le nombre de lignes dans les descriptions */
-    .line-clamp-2 {
-        display: -webkit-box;
-        -webkit-line-clamp: 2;
-        -webkit-box-orient: vertical;
-        overflow: hidden;
-    }
+  /* Limite le nombre de lignes dans les descriptions */
+  .line-clamp-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
 
-    /* Styles pour le scrolling horizontal et vertical */
-    .overflow-x-auto {
-        scrollbar-width: thin;
-        scrollbar-color: rgba(156, 163, 175, 0.5) transparent;
-    }
+  /* Styles pour le scrolling horizontal et vertical */
+  .overflow-x-auto {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(156, 163, 175, 0.5) transparent;
+  }
 
-    .overflow-x-auto::-webkit-scrollbar {
-        height: 8px;
-    }
+  .overflow-x-auto::-webkit-scrollbar {
+    height: 8px;
+  }
 
-    .overflow-x-auto::-webkit-scrollbar-track {
-        background: transparent;
-    }
+  .overflow-x-auto::-webkit-scrollbar-track {
+    background: transparent;
+  }
 
-    .overflow-x-auto::-webkit-scrollbar-thumb {
-        background-color: rgba(156, 163, 175, 0.5);
-        border-radius: 20px;
-    }
+  .overflow-x-auto::-webkit-scrollbar-thumb {
+    background-color: rgba(156, 163, 175, 0.5);
+    border-radius: 20px;
+  }
 
-    [id^="column-"] {
-        scrollbar-width: thin;
-        scrollbar-color: rgba(156, 163, 175, 0.5) transparent;
-    }
+  [id^="column-"] {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(156, 163, 175, 0.5) transparent;
+  }
 
-    [id^="column-"]::-webkit-scrollbar {
-        width: 6px;
-    }
+  [id^="column-"]::-webkit-scrollbar {
+    width: 6px;
+  }
 
-    [id^="column-"]::-webkit-scrollbar-track {
-        background: transparent;
-    }
+  [id^="column-"]::-webkit-scrollbar-track {
+    background: transparent;
+  }
 
-    [id^="column-"]::-webkit-scrollbar-thumb {
-        background-color: rgba(156, 163, 175, 0.5);
-        border-radius: 20px;
-    }
+  [id^="column-"]::-webkit-scrollbar-thumb {
+    background-color: rgba(156, 163, 175, 0.5);
+    border-radius: 20px;
+  }
 </style>
 
 <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        // Configuration drag-and-drop
-        const taskCards = document.querySelectorAll('.task-card');
-        const columns = document.querySelectorAll('[id^="column-"]');
+  document.addEventListener('DOMContentLoaded', function() {
+    // Configuration drag-and-drop
+    const taskCards = document.querySelectorAll('.task-card');
+    const columns = document.querySelectorAll('[id^="column-"]');
 
-        // Rendre les cartes déplaçables
-        taskCards.forEach(card => {
-            card.setAttribute('draggable', 'true');
+    // Rendre les cartes déplaçables
+    taskCards.forEach(card => {
+      card.setAttribute('draggable', 'true');
 
-            card.addEventListener('dragstart', function(e) {
-                e.dataTransfer.setData('text/plain', this.dataset.id);
-                this.classList.add('is-dragging', 'opacity-60', 'scale-105');
-            });
+      card.addEventListener('dragstart', function(e) {
+        e.dataTransfer.setData('text/plain', this.dataset.id);
+        this.classList.add('is-dragging', 'opacity-60', 'scale-105');
+      });
 
-            card.addEventListener('dragend', function() {
-                this.classList.remove('is-dragging', 'opacity-60', 'scale-105');
-            });
-        });
-
-        // Configuration des colonnes pour recevoir les tâches
-        columns.forEach(column => {
-            column.addEventListener('dragover', function(e) {
-                e.preventDefault();
-                this.classList.add('bg-opacity-70');
-            });
-
-            column.addEventListener('dragleave', function() {
-                this.classList.remove('bg-opacity-70');
-            });
-
-            column.addEventListener('drop', async function(e) {
-                e.preventDefault();
-                this.classList.remove('bg-opacity-70');
-
-                const taskId = e.dataTransfer.getData('text/plain');
-                const newStatus = this.dataset.status;
-
-                // Trouver la carte de tâche
-                const taskCard = document.querySelector(`.task-card[data-id="${taskId}"]`);
-
-                if (taskCard && taskCard.dataset.status !== newStatus) {
-                    try {
-                        // Animation de déplacement
-                        taskCard.classList.add('scale-95', 'opacity-50');
-
-                        // Appel API pour mettre à jour le statut
-                        const response = await fetch(`/tasks/${taskId}/status`, {
-                            method: 'PUT',
-                            headers: {'Content-Type': 'application/json'},
-                            body: JSON.stringify({ status: newStatus }),
-                        });
-
-                        if (response.ok) {
-                            // Mettre à jour visuellement
-                            const oldColumn = taskCard.parentElement;
-                            this.appendChild(taskCard);
-                            taskCard.dataset.status = newStatus;
-
-                            // Animer l'arrivée
-                            setTimeout(() => {
-                                taskCard.classList.remove('scale-95', 'opacity-50');
-                            }, 50);
-
-                            // Mettre à jour les compteurs
-                            updateColumnCounts();
-
-                            // Notifier le succès
-                            showNotification(`Tâche déplacée vers "${getStatusName(newStatus)}"`, 'success');
-                        } else {
-                            const errorData = await response.json();
-                            showNotification(errorData.error || 'Une erreur est survenue', 'error');
-                            taskCard.classList.remove('scale-95', 'opacity-50');
-                        }
-                    } catch (error) {
-                        console.error('Erreur:', error);
-                        showNotification('Erreur de communication avec le serveur', 'error');
-                        taskCard.classList.remove('scale-95', 'opacity-50');
-                    }
-                }
-            });
-        });
-
-        // Fonctions utilitaires
-        function updateColumnCounts() {
-            columns.forEach(column => {
-                const status = column.dataset.status;
-                const count = column.querySelectorAll('.task-card').length;
-                const counterElem = column.previousElementSibling.querySelector('span:last-child');
-                if (counterElem) counterElem.textContent = `(${count})`;
-            });
-        }
-
-        function getStatusName(status) {
-            const names = {
-                'A_FAIRE': 'À faire',
-                'EN_COURS': 'En cours',
-                'EN_REVISION': 'En révision',
-                'TERMINEE': 'Terminée'
-            };
-            return names[status] || status;
-        }
-
-        function showNotification(message, type) {
-            // Créer la notification
-            const notification = document.createElement('div');
-            notification.className = `fixed bottom-4 right-4 px-4 py-2 rounded-lg shadow-lg z-50 flex items-center transform transition-all duration-300 opacity-0 translate-y-4`;
-
-            // Styliser selon le type
-            if (type === 'success') {
-                notification.classList.add('bg-green-100', 'text-green-800', 'border-l-4', 'border-green-500');
-            } else if (type === 'error') {
-                notification.classList.add('bg-red-100', 'text-red-800', 'border-l-4', 'border-red-500');
-            } else {
-                notification.classList.add('bg-blue-100', 'text-blue-800', 'border-l-4', 'border-blue-500');
-            }
-
-            // Ajouter le contenu
-            notification.innerHTML = `
-            <div class="text-sm font-medium">${message}</div>
-            <button class="ml-4 text-gray-400 hover:text-gray-600" onclick="this.parentElement.remove()">
-                <svg class="h-4 w-4" fill="currentColor" viewBox="0 0 20 20">
-                    <path d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"></path>
-                </svg>
-            </button>
-        `;
-
-            // Ajouter au DOM et animer
-            document.body.appendChild(notification);
-            setTimeout(() => {
-                notification.classList.remove('opacity-0', 'translate-y-4');
-                notification.classList.add('opacity-100', 'translate-y-0');
-            }, 10);
-
-            // Supprimer après 5 secondes
-            setTimeout(() => {
-                notification.classList.add('opacity-0', 'translate-y-4');
-                setTimeout(() => notification.remove(), 300);
-            }, 5000);
-        }
-
-        // Vérifier les dates limites
-        document.querySelectorAll('[data-due-date]').forEach(el => {
-            const dueDate = new Date(Number(el.dataset.dueDate));
-            const today = new Date();
-            today.setHours(0,0,0,0);
-            dueDate.setHours(0,0,0,0);
-
-            if (dueDate < today) {
-                el.classList.add('text-red-600', 'font-medium');
-            } else if (dueDate.getTime() === today.getTime()) {
-                el.classList.add('text-yellow-600', 'font-medium');
-            }
-        });
+      card.addEventListener('dragend', function() {
+        this.classList.remove('is-dragging', 'opacity-60', 'scale-105');
+      });
     });
+
+    // Configuration des colonnes pour recevoir les tâches
+    columns.forEach(column => {
+      column.addEventListener('dragover', function(e) {
+        e.preventDefault();
+        this.classList.add('bg-opacity-70');
+      });
+
+      column.addEventListener('dragleave', function() {
+        this.classList.remove('bg-opacity-70');
+      });
+
+      column.addEventListener('drop', async function(e) {
+        e.preventDefault();
+        this.classList.remove('bg-opacity-70');
+
+        const taskId = e.dataTransfer.getData('text/plain');
+        const newStatus = this.dataset.status;
+
+        // Trouver la carte de tâche
+        const taskCard = document.querySelector(`.task-card[data-id="${taskId}"]`);
+
+        if (taskCard && taskCard.dataset.status !== newStatus) {
+          try {
+            // Animation de déplacement
+            taskCard.classList.add('scale-95', 'opacity-50');
+
+            // Appel API pour mettre à jour le statut
+            const response = await fetch(`/tasks/${taskId}/status`, {
+              method: 'PUT',
+              headers: {'Content-Type': 'application/json'},
+              body: JSON.stringify({ status: newStatus }),
+            });
+
+            if (response.ok) {
+                setTimeout(() => {
+                location.reload();
+                }, 300);
+            } else 
+            {
+                 const errorData = await response.json();
+                 showNotification(errorData.error || 'Une erreur est survenue', 'error');
+                 taskCard.classList.remove('scale-95', 'opacity-50');
+            }
+
+          } catch (error) {
+            console.error('Erreur:', error);
+            taskCard.classList.remove('scale-95', 'opacity-50');
+          }
+        }
+      });
+    });
+
+    // Mettre à jour les compteurs dans les titres de colonnes
+    function updateColumnCounts() {
+      columns.forEach(column => {
+        const status = column.dataset.status;
+        const count = column.querySelectorAll('.task-card').length;
+        const counterElem = column.querySelector('span.ml-2');
+        if (counterElem) {
+          counterElem.textContent = `(${count})`;
+        }
+      });
+    }
+  });
 </script>

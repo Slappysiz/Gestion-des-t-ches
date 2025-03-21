@@ -47,52 +47,33 @@
     </script>
 </head>
 <body class="bg-gray-50 text-gray-900 font-sans min-h-screen flex flex-col">
-<!-- Header -->
-<header class="bg-white shadow sticky top-0 z-10">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
-        <div class="flex justify-between items-center">
-            <div class="flex items-center">
+
+    <!-- Inclusion du header via un partial -->
+    {{> header}}
+
+    <!-- Contenu principal -->
+    <main class="flex-grow w-full mx-auto px-4 sm:px-6 lg:px-8 py-6">
+        {{#if error}}
+            <div class="bg-red-100 border-l-4 border-red-500 text-red-700 p-4 mb-4 rounded-md" role="alert">
+                <p>{{error}}</p>
             </div>
+        {{/if}}
 
-            <div class="flex items-center space-x-4">
-                <a href="/" class="text-gray-600 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium flex items-center hover:bg-gray-100 transition-colors">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" viewBox="0 0 20 20" fill="currentColor">
-                        <path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z" />
-                    </svg>
-                    <span>Les tâches</span>
-                </a>
+        {{{ body }}}
+    </main>
 
-            </div>
-        </div>
-    </div>
-</header>
+    <!-- Inclusion du footer via un partial -->
+    {{> footer}}
 
-<!-- Contenu principal -->
-<main class="flex-grow w-full mx-auto px-4 sm:px-6 lg:px-8 py-6">
-    {{#if error}}
-        <div class="bg-red-100 border-l-4 border-red-500 text-red-700 p-4 mb-4 rounded-md" role="alert">
-            <p>{{error}}</p>
-        </div>
-    {{/if}}
+    <!-- Container pour les notifications -->
+    <div id="notifications-container" class="fixed bottom-4 right-4 z-50"></div>
 
-    {{{body}}}
-</main>
-
-<!-- footer -->
-<footer class="bg-white border-t border-gray-200 py-4 mt-auto">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <p class="text-center text-sm text-gray-500">© Salif, Mourad, Amine, Antaki</p>
-    </div>
-</footer>
-
-<!-- Container pour les notifications -->
-<div id="notifications-container" class="fixed bottom-4 right-4 z-50"></div>
-
-<!-- Scripts JS -->
-<script>
-    // Initialiser les icônes Feather
-    feather.replace();
-</script>
-<script src="/scripts/main.js"></script>
+    <!-- Scripts JS -->
+    <script>
+        // Initialiser les icônes Feather
+        feather.replace();
+    </script>
+    <script src="/scripts/main.js"></script>
+    
 </body>
 </html>

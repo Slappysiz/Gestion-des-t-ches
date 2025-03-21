@@ -1,0 +1,227 @@
+{{!-- Section Hero --}}
+<section class="bg-blue-50 py-12">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center">
+    <div class="md:w-1/2 mb-8 md:mb-0 md:pr-8">
+      <h1 class="text-3xl sm:text-4xl font-bold text-indigo-700 mb-4">
+        Votre moteur de productivité
+      </h1>
+      <p class="text-gray-700 mb-4 leading-relaxed">
+        Organisez-vous efficacement avec la Boîte de réception, les Boards et le Planner. 
+        Chaque tâche, chaque idée ou responsabilité – peu importe comment elle se présente – 
+        garde sa place, vous gardant au top de votre organisation.
+      </p>
+      <a href="/tasks/create"
+         class="inline-block bg-indigo-600 text-white px-6 py-2 rounded-md font-medium hover:bg-indigo-700 transition">
+        Créer une nouvelle tâche
+      </a>
+    </div>
+    <!-- Illustration -->
+    <div class="md:w-1/2">
+      <img src="/img/pexels.jpg" alt="Aperçu du tableau de tâches" class="rounded shadow-md">
+    </div>
+  </div>
+</section>
+
+{{!-- Section Fonctionnalités --}}
+<section class="py-12">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <h2 class="text-2xl font-bold text-gray-800 text-center mb-8">Fonctionnalités principales</h2>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+      
+      <!-- Boîte de réception -->
+      <div class="bg-white rounded-lg shadow p-6">
+        <div class="flex items-center justify-between mb-2">
+          <h3 class="text-xl font-semibold text-gray-800">Boîte de réception</h3>
+          <span class="text-xs bg-blue-100 text-blue-700 px-2 py-1 rounded-full">Nouveau</span>
+        </div>
+        <p class="text-gray-600 mb-4">
+          Centralisez toutes vos tâches et idées en un seul endroit, prêtes à être organisées.
+        </p>
+        <img src="/img/reception.png" alt="Boîte de réception" class="rounded mb-4">
+        <a href="/tasks" class="inline-block text-indigo-600 hover:underline">
+          En savoir plus →
+        </a>
+      </div>
+
+      <!-- Conseils -->
+      <div class="bg-white rounded-lg shadow p-6">
+        <h3 class="text-xl font-semibold text-gray-800 mb-2">Conseils</h3>
+        <p class="text-gray-600 mb-4">
+          Recevez des astuces pour gérer votre temps, mieux prioriser et éviter la procrastination.
+        </p>
+        <img src="/img/conseils.png" alt="Conseils" class="rounded mb-4">
+        <a href="#" class="inline-block text-indigo-600 hover:underline">
+          Découvrir les conseils →
+        </a>
+      </div>
+
+      <!-- Boards & Planner -->
+      <div class="bg-white rounded-lg shadow p-6">
+        <div class="flex items-center justify-between mb-2">
+          <h3 class="text-xl font-semibold text-gray-800">Boards & Planner</h3>
+          <span class="text-xs bg-gray-100 text-gray-700 px-2 py-1 rounded-full">Bientôt</span>
+        </div>
+        <p class="text-gray-600 mb-4">
+          Organisez vos tâches en colonnes (À faire, En cours, Terminé) et planifiez-les pour la semaine ou le mois.
+        </p>
+        <img src="/img/board.png" alt="Boards & Planner" class="rounded mb-4">
+        <a href="/tasks" class="inline-block text-indigo-600 hover:underline">
+          Voir un aperçu →
+        </a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section class="overflow-x-auto pb-6">
+  <div class="flex space-x-6 min-w-max">
+    <!-- Colonne "À faire" -->
+    <div class="w-80 flex-shrink-0">
+      <div class="bg-gray-100 rounded-t-lg px-4 py-3 border-b border-gray-200">
+        <h2 class="text-lg font-medium text-gray-900 flex items-center">
+          <span class="w-3 h-3 bg-gray-500 rounded-full mr-2"></span>
+          À faire
+          <span class="ml-2 text-sm font-normal text-gray-500">({{tasksByStatus.A_FAIRE.length}})</span>
+        </h2>
+      </div>
+      <div class="bg-gray-50 p-2 rounded-b-lg min-h-[200px] space-y-2">
+        {{#if tasksByStatus.A_FAIRE.length}}
+          {{#each tasksByStatus.A_FAIRE}}
+            <div class="task-card bg-white border border-gray-200 rounded-lg p-3 shadow-sm hover:shadow-md transition-shadow">
+              <div class="flex justify-between items-start">
+                <h3 class="text-sm font-medium text-gray-900 flex-grow">{{title}}</h3>
+                {{!-- Badge de priorité (si vous avez un helper priorityClass) --}}
+                <span class="ml-2 px-2 py-1 text-xs {{priorityClass priority}} rounded-full">
+                  {{priority}}
+                </span>
+              </div>
+              {{#if description}}
+                <p class="mt-1 text-xs text-gray-500 line-clamp-2">{{description}}</p>
+              {{/if}}
+              <div class="mt-2 flex justify-between">
+                <a href="/tasks/{{id}}" class="text-xs text-blue-600 hover:text-blue-800">Détails</a>
+              </div>
+            </div>
+          {{/each}}
+        {{else}}
+          <div class="text-center py-8 text-gray-400 bg-white rounded-lg border border-dashed border-gray-300">
+            <p>Aucune tâche à faire</p>
+          </div>
+        {{/if}}
+      </div>
+    </div>
+
+    <!-- Colonne "En cours" -->
+    <div class="w-80 flex-shrink-0">
+      <div class="bg-blue-100 rounded-t-lg px-4 py-3 border-b border-gray-200">
+        <h2 class="text-lg font-medium text-gray-900 flex items-center">
+          <span class="w-3 h-3 bg-blue-500 rounded-full mr-2"></span>
+          En cours
+          <span class="ml-2 text-sm font-normal text-gray-500">({{tasksByStatus.EN_COURS.length}})</span>
+        </h2>
+      </div>
+      <div class="bg-blue-50 p-2 rounded-b-lg min-h-[200px] space-y-2">
+        {{#if tasksByStatus.EN_COURS.length}}
+          {{#each tasksByStatus.EN_COURS}}
+            <div class="task-card bg-white border border-gray-200 rounded-lg p-3 shadow-sm hover:shadow-md transition-shadow">
+              <div class="flex justify-between items-start">
+                <h3 class="text-sm font-medium text-gray-900 flex-grow">{{title}}</h3>
+                <span class="ml-2 px-2 py-1 text-xs {{priorityClass priority}} rounded-full">
+                  {{priority}}
+                </span>
+              </div>
+              {{#if description}}
+                <p class="mt-1 text-xs text-gray-500 line-clamp-2">{{description}}</p>
+              {{/if}}
+              <div class="mt-2 flex justify-between">
+                <a href="/tasks/{{id}}" class="text-xs text-blue-600 hover:text-blue-800">Détails</a>
+              </div>
+            </div>
+          {{/each}}
+        {{else}}
+          <div class="text-center py-8 text-gray-400 bg-white rounded-lg border border-dashed border-gray-300">
+            <p>Aucune tâche en cours</p>
+          </div>
+        {{/if}}
+      </div>
+    </div>
+
+    <!-- Colonne "En révision" -->
+    <div class="w-80 flex-shrink-0">
+      <div class="bg-purple-100 rounded-t-lg px-4 py-3 border-b border-gray-200">
+        <h2 class="text-lg font-medium text-gray-900 flex items-center">
+          <span class="w-3 h-3 bg-purple-500 rounded-full mr-2"></span>
+          En révision
+          <span class="ml-2 text-sm font-normal text-gray-500">({{tasksByStatus.EN_REVISION.length}})</span>
+        </h2>
+      </div>
+      <div class="bg-purple-50 p-2 rounded-b-lg min-h-[200px] space-y-2">
+        {{#if tasksByStatus.EN_REVISION.length}}
+          {{#each tasksByStatus.EN_REVISION}}
+            <div class="task-card bg-white border border-gray-200 rounded-lg p-3 shadow-sm hover:shadow-md transition-shadow">
+              <div class="flex justify-between items-start">
+                <h3 class="text-sm font-medium text-gray-900 flex-grow">{{title}}</h3>
+                <span class="ml-2 px-2 py-1 text-xs {{priorityClass priority}} rounded-full">
+                  {{priority}}
+                </span>
+              </div>
+              {{#if description}}
+                <p class="mt-1 text-xs text-gray-500 line-clamp-2">{{description}}</p>
+              {{/if}}
+              <div class="mt-2 flex justify-between">
+                <a href="/tasks/{{id}}" class="text-xs text-blue-600 hover:text-blue-800">Détails</a>
+              </div>
+            </div>
+          {{/each}}
+        {{else}}
+          <div class="text-center py-8 text-gray-400 bg-white rounded-lg border border-dashed border-gray-300">
+            <p>Aucune tâche en révision</p>
+          </div>
+        {{/if}}
+      </div>
+    </div>
+
+    <!-- Colonne "Terminée" -->
+    <div class="w-80 flex-shrink-0">
+      <div class="bg-green-100 rounded-t-lg px-4 py-3 border-b border-gray-200">
+        <h2 class="text-lg font-medium text-gray-900 flex items-center">
+          <span class="w-3 h-3 bg-green-500 rounded-full mr-2"></span>
+          Terminée
+          <span class="ml-2 text-sm font-normal text-gray-500">({{tasksByStatus.TERMINEE.length}})</span>
+        </h2>
+      </div>
+      <div class="bg-green-50 p-2 rounded-b-lg min-h-[200px] space-y-2">
+        {{#if tasksByStatus.TERMINEE.length}}
+          {{#each tasksByStatus.TERMINEE}}
+            <div class="task-card bg-white border border-gray-200 rounded-lg p-3 shadow-sm hover:shadow-md transition-shadow">
+              <div class="flex justify-between items-start">
+                <h3 class="text-sm font-medium text-gray-900 flex-grow">{{title}}</h3>
+                <span class="ml-2 px-2 py-1 text-xs {{priorityClass priority}} rounded-full">
+                  {{priority}}
+                </span>
+              </div>
+              {{#if description}}
+                <p class="mt-1 text-xs text-gray-500 line-clamp-2">{{description}}</p>
+              {{/if}}
+              <div class="mt-2 flex justify-between">
+                <a href="/tasks/{{id}}" class="text-xs text-blue-600 hover:text-blue-800">Détails</a>
+              </div>
+            </div>
+          {{/each}}
+        {{else}}
+          <div class="text-center py-8 text-gray-400 bg-white rounded-lg border border-dashed border-gray-300">
+            <p>Aucune tâche terminée</p>
+          </div>
+        {{/if}}
+      </div>
+    </div>
+  </div>
+
+  <div class="text-center mt-6">
+      <a href="/tasks" class="inline-block bg-indigo-600 text-white px-6 py-2 rounded-md font-medium hover:bg-indigo-700 transition">
+        Voir le tableau des tâches
+      </a>
+    </div>
+  </div>
+</section>
