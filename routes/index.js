@@ -1,9 +1,9 @@
 import express from 'express';
-import TaskController from '../controllers/taskController.js';
+import HomeController from '../controllers/homeController.js';
 
 const router = express.Router();
 
-// La page d'accueil est maintenant le tableau de tâches
-router.get('/', TaskController.renderTasksList);
+// Route pour la page d'accueil principale
+router.get('/', HomeController.renderHomePage);
 
 export default router;

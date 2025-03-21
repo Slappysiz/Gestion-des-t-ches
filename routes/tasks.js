@@ -6,7 +6,7 @@ const router = express.Router();
 // Route pour la liste des tâches
 router.get('/', TaskController.renderTasksList);
 
-// Routes pour la création - ces routes spécifiques doivent être avant les routes dynamiques
+// Routes pour la création
 router.get('/create', TaskController.renderCreateTaskForm);
 router.post('/create', TaskController.createTask);
 
