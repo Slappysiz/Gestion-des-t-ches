@@ -6,20 +6,23 @@ import helmet from 'helmet';
 import compression from 'compression';
 import path from 'path';
 import { fileURLToPath } from 'url';
-
-// Routes
+import session from 'express-session';         // Gestion des sessions
+import memorystore from 'memorystore';          // Stockage en mémoire pour les sessions
+import passport from 'passport';                // Passport pour l'authentification
+import authRoutes from './routes/auth.js';
 import indexRoutes from './routes/index.js';
 import tasksRoutes from './routes/tasks.js';
-
-// Middleware
+import profileRoutes from './routes/profile.js';
 import errorHandler from './middleware/errorHandler.js';
 
-// Configuration
+// Configuration Passport (stratégie, serializeUser et deserializeUser)
+import './config/authentification.js';
+
+// Initialisation de l'application
 dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 3001;
 
-// Conversion dirname pour ES modules
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
@@ -41,23 +44,39 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'public')));
 
-// Définition du moteur Handlebars
+// Configuration des sessions et de Passport
+const MemoryStore = memorystore(session);
+app.use(session({
+  cookie: { maxAge: 3600000 },
+  name: process.env.npm_package_name,
+  store: new MemoryStore({ checkPeriod: 3600000 }),
+  resave: false,
+  saveUninitialized: false,
+  secret: process.env.SESSION_SECRET,
+}));
+
+// Initialiser Passport après la session
+app.use(passport.initialize());
+app.use(passport.session());
+
+app.use((req, res, next) => {
+  res.locals.user = req.user;
+  next();
+});
+
+// Configuration du moteur de templates Handlebars
 app.engine('handlebars', engine({
   helpers: {
     formatDate: (timestamp) => {
       if (!timestamp) return '';
-      const timestampValue = typeof timestamp === 'bigint' ? timestamp.toString() : timestamp;
-      const date = new Date(Number(timestampValue));
-      return date.toLocaleDateString('fr-FR', {
-        day: '2-digit',
-        month: '2-digit',
-        year: 'numeric'
-      });
+      const ts = typeof timestamp === 'bigint' ? timestamp.toString() : timestamp;
+      const date = new Date(Number(ts));
+      return date.toLocaleDateString('fr-FR', { day: '2-digit', month: '2-digit', year: 'numeric' });
     },
     formatDateInput: (timestamp) => {
       if (!timestamp) return '';
-      const timestampValue = typeof timestamp === 'bigint' ? timestamp.toString() : timestamp;
-      const date = new Date(Number(timestampValue));
+      const ts = typeof timestamp === 'bigint' ? timestamp.toString() : timestamp;
+      const date = new Date(Number(ts));
       return date.toISOString().split('T')[0];
     },
     priorityClass: (priority) => {
@@ -78,20 +97,31 @@ app.engine('handlebars', engine({
       }
     },
     equals: (a, b) => a === b,
-    eq: (a, b) => a === b
-  }
+    eq: (a, b) => a === b,
+  },
 }));
 app.set('view engine', 'handlebars');
-app.set('views', './views');
+app.set('views', path.join(__dirname, 'views')); // Utilise un chemin absolu pour les vues
+
+// Middleware global pour passer le flash message aux vues
+app.use((req, res, next) => {
+  res.locals.successMessage = req.session.successMessage;
+  delete req.session.successMessage;  // Supprime le message après l'avoir transmis
+  next();
+});
+app.use((req, res, next) => {
+  res.locals.successMessage = req.session?.successMessage;
+  if (req.session) delete req.session.successMessage;
+  next();
+});
 
 // Configuration des routes
 console.log("Configuration des routes");
+app.use('/auth', authRoutes);
 app.use('/', indexRoutes);
 app.use('/tasks', tasksRoutes);
-
-app.get('*', (req, res) => {
-  res.redirect('/');
-});
+app.use('/profile', profileRoutes);
+app.get('*', (req, res) => res.redirect('/'));
 
 // Middleware de gestion d'erreurs
 app.use(errorHandler);

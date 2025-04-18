@@ -1,4 +1,4 @@
-<header class="bg-gradient-to-r from-purple-800 to-indigo-900 text-white py-6 mt-auto">
+<header class="bg-gradient-to-r from-purple-800 to-indigo-900 text-white py-6">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
     <div class="flex justify-between items-center">
       <div class="flex items-center space-x-4">
@@ -7,12 +7,28 @@
         </a>
       </div>
       <div class="flex items-center space-x-4">
-        <a href="/" class="text-white hover:bg-indigo-700 px-3 py-2 rounded-md text-sm font-medium transition-colors">
-          Accueil
-        </a>
-        <a href="/tasks" class="text-white hover:bg-indigo-700 px-3 py-2 rounded-md text-sm font-medium transition-colors">
-          Tâches
-        </a>
+        {{!-- Si l'utilisateur est connecté, afficher Accueil, Tâches, Profil et Déconnexion --}}
+        {{#if user}}
+          <a href="/" class="text-white hover:bg-indigo-700 px-3 py-2 rounded-md text-sm font-medium transition-colors">
+            Accueil
+          </a>
+          <a href="/tasks" class="text-white hover:bg-indigo-700 px-3 py-2 rounded-md text-sm font-medium transition-colors">
+            Tâches
+          </a>
+          <a href="/profile" class="text-white hover:bg-indigo-700 px-3 py-2 rounded-md text-sm font-medium transition-colors">
+            Profil
+          </a>
+          <form action="/auth/deconnexion" method="POST" class="inline">
+            <button type="submit" class="text-white hover:bg-indigo-700 px-3 py-2 rounded-md text-sm font-medium transition-colors">
+              Déconnexion
+            </button>
+          </form>
+        {{!-- Sinon, afficher uniquement le lien Connexion --}}
+        {{else}}
+          <a href="/auth/login" class="text-white hover:bg-indigo-700 px-3 py-2 rounded-md text-sm font-medium transition-colors">
+            Connexion
+          </a>
+        {{/if}}
       </div>
     </div>
   </div>

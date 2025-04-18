@@ -1,3 +1,18 @@
+{{#if successMessage}}
+  <div id="flash-message" class="bg-green-200 text-green-800 p-3 rounded mb-4 text-center">
+    {{successMessage}}
+  </div>
+  <script>
+    // Masque automatiquement le message après 3 secondes
+    setTimeout(function() {
+      var flash = document.getElementById('flash-message');
+      if (flash) {
+        flash.style.display = 'none';
+      }
+    }, 3000);
+  </script>
+{{/if}}
+
 {{!-- Section Hero --}}
 <section class="bg-blue-50 py-12">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center">
@@ -91,7 +106,6 @@
             <div class="task-card bg-white border border-gray-200 rounded-lg p-3 shadow-sm hover:shadow-md transition-shadow">
               <div class="flex justify-between items-start">
                 <h3 class="text-sm font-medium text-gray-900 flex-grow">{{title}}</h3>
-                {{!-- Badge de priorité (si vous avez un helper priorityClass) --}}
                 <span class="ml-2 px-2 py-1 text-xs {{priorityClass priority}} rounded-full">
                   {{priority}}
                 </span>
@@ -219,9 +233,9 @@
   </div>
 
   <div class="text-center mt-6">
-      <a href="/tasks" class="inline-block bg-indigo-600 text-white px-6 py-2 rounded-md font-medium hover:bg-indigo-700 transition">
-        Voir le tableau des tâches
-      </a>
-    </div>
+    <a href="/tasks" class="inline-block bg-indigo-600 text-white px-6 py-2 rounded-md font-medium hover:bg-indigo-700 transition">
+      Voir le tableau des tâches
+    </a>
   </div>
 </section>
+
