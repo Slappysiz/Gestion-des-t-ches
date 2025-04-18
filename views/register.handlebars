@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>{{title}}</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Styles pour l'indicateur de force du mot de passe et le visuel -->
+  <style>
+    .strength-weak { color: red; }
+    .strength-medium { color: orange; }
+    .strength-strong { color: green; }
+    .gradient-right {
+      background: linear-gradient(to top right, #4f46e5, #8b5cf6);
+    }
+  </style>
+</head>
+<body class="bg-gray-50 min-h-screen flex flex-col">
+  <div class="flex flex-1">
+    <!-- Colonne de gauche : Formulaire d'inscription -->
+    <div class="w-full lg:w-1/2 flex items-center justify-center bg-white">
+      <div class="max-w-md w-full p-6 sm:p-8 md:p-10">
+        <h1 class="text-2xl font-bold mb-4 text-gray-700">Créer un compte</h1>
+        {{#if error}}
+          <div class="bg-red-200 text-red-800 p-2 rounded mb-4">{{error}}</div>
+        {{/if}}
+        <form action="/auth/inscription" method="POST" id="registerForm" class="space-y-5">
+          <div>
+            <label for="username" class="block text-sm font-medium text-gray-700">Nom d'utilisateur</label>
+            <input type="text" name="username" id="username" required
+                   class="mt-1 block w-full border border-gray-300 rounded-md p-2 focus:ring-indigo-500 focus:border-indigo-500"
+                   placeholder="Votre nom d'utilisateur">
+          </div>
+          <div>
+            <label for="nom" class="block text-sm font-medium text-gray-700">Nom</label>
+            <input type="text" name="nom" id="nom" required
+                   class="mt-1 block w-full border border-gray-300 rounded-md p-2 focus:ring-indigo-500 focus:border-indigo-500"
+                   placeholder="Votre nom">
+          </div>
+          <div>
+            <label for="prenom" class="block text-sm font-medium text-gray-700">Prénom</label>
+            <input type="text" name="prenom" id="prenom" required
+                   class="mt-1 block w-full border border-gray-300 rounded-md p-2 focus:ring-indigo-500 focus:border-indigo-500"
+                   placeholder="Votre prénom">
+          </div>
+          <div>
+            <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
+            <input type="email" name="email" id="email" required
+                   class="mt-1 block w-full border border-gray-300 rounded-md p-2 focus:ring-indigo-500 focus:border-indigo-500"
+                   placeholder="exemple@gmail.com">
+          </div>
+          <div>
+            <label for="password" class="block text-sm font-medium text-gray-700">Mot de passe</label>
+            <input type="password" name="password" id="password" required
+                   class="mt-1 block w-full border border-gray-300 rounded-md p-2 focus:ring-indigo-500 focus:border-indigo-500"
+                   placeholder="••••••••">
+            <p id="passwordStrength" class="text-sm mt-1"></p>
+          </div>
+          <div>
+            <label for="confirmPassword" class="block text-sm font-medium text-gray-700">Confirmer le mot de passe</label>
+            <input type="password" name="confirmPassword" id="confirmPassword" required
+                   class="mt-1 block w-full border border-gray-300 rounded-md p-2 focus:ring-indigo-500 focus:border-indigo-500"
+                   placeholder="••••••••">
+          </div>
+          <button type="submit" class="w-full bg-indigo-600 text-white py-2 rounded-md hover:bg-indigo-700 transition-colors">
+            Créer un compte
+          </button>
+          <p class="text-center text-sm text-gray-600">
+            Déjà un compte ? 
+            <a href="/auth/login" class="text-indigo-600 hover:underline">Se connecter</a>
+          </p>
+        </form>
+      </div>
+    </div>
+
+    <!-- Colonne de droite : Visuel pour grands écrans -->
+    <div class="hidden lg:flex lg:w-1/2 gradient-right items-center justify-center text-white p-10">
+      <div class="max-w-md text-center">
+        <h2 class="text-3xl font-bold mb-4">Bienvenue sur MASA</h2>
+        <p class="text-sm mb-6">
+          Rejoignez notre plateforme pour booster votre productivité. Créez votre compte et commencez à organiser vos tâches dès aujourd'hui !
+        </p>
+        <img src="/img/yes.jpg" alt="ye" class="mx-auto w-35/3" />
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Vérification de la force du mot de passe
+    const passwordInput = document.getElementById('password');
+    const strengthText = document.getElementById('passwordStrength');
+    passwordInput.addEventListener('input', function () {
+      const value = passwordInput.value;
+      let strength = '';
+      let className = '';
+      if (value.length === 0) {
+        strength = '';
+      } else if (value.length < 6) {
+        strength = 'Faible';
+        className = 'strength-weak';
+      } else if (value.length < 10) {
+        strength = 'Moyen';
+        className = 'strength-medium';
+      } else {
+        strength = 'Fort';
+        className = 'strength-strong';
+      }
+      strengthText.textContent = strength;
+      strengthText.className = className;
+    });
+
+    // Vérifie la correspondance des mots de passe
+    const registerForm = document.getElementById('registerForm');
+    registerForm.addEventListener('submit', function (e) {
+      const password = document.getElementById('password').value;
+      const confirmPassword = document.getElementById('confirmPassword').value;
+      if (password !== confirmPassword) {
+        e.preventDefault();
+        alert("Les mots de passe ne correspondent pas.");
+      }
+    });
+  </script>
+</body>
+</html>
+

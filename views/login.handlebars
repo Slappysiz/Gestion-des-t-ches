@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <title>Connexion - Mon Application</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    .gradient-right {
+      background: linear-gradient(
+        to top right,
+        #4f46e5,
+        #8b5cf6 
+      );
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col">
+
+  <div class="flex flex-1">
+    <!-- Colonne de gauche (Formulaire) -->
+    <div class="w-full lg:w-1/2 flex items-center justify-center bg-white">
+      <div class="max-w-md w-full p-6 sm:p-8 md:p-10">
+        <!-- Logo -->
+        <div class="text-center mb-6">
+          <img src="/img/logo.png" alt="Logo MASA" class="mx-auto h-12 mb-4" />
+          <h1 class="text-2xl font-bold text-gray-700">Connectez-vous</h1>
+          <p class="text-sm text-gray-500">Accédez à votre espace de productivité</p>
+        </div>
+
+        <!-- Formulaire -->
+        <form action="/auth/login" method="POST" class="space-y-5">
+          <div>
+            <label for="email" class="block text-sm font-medium text-gray-700 mb-1">
+              Adresse courriel
+            </label>
+            <input
+              type="email"
+              name="email"
+              id="email"
+              required
+              placeholder="exemple@gmail.com"
+              class="w-full border border-gray-300 rounded-md p-2 focus:ring-indigo-500 focus:border-indigo-500"
+            />
+          </div>
+
+          <div>
+            <label for="password" class="block text-sm font-medium text-gray-700 mb-1">
+              Mot de passe
+            </label>
+            <input
+              type="password"
+              name="password"
+              id="password"
+              required
+              placeholder="••••••••"
+              class="w-full border border-gray-300 rounded-md p-2 focus:ring-indigo-500 focus:border-indigo-500"
+            />
+          </div>
+
+          <!-- Bouton de connexion -->
+          <button
+            type="submit"
+            class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-medium py-2 px-4 rounded-md transition-colors"
+          >
+            S'identifier
+          </button>
+
+          <!-- Lien "Mot de passe oublié" -->
+          <div class="text-center mt-2">
+            <a href="#" class="text-sm text-indigo-600 hover:underline">
+              Mot de passe oublié ?
+            </a>
+          </div>
+        </form>
+
+        <!-- Ligne de séparation -->
+        <hr class="my-6 border-gray-300" />
+
+        <!-- Lien vers l'inscription -->
+        <p class="text-center text-sm">
+          Pas encore de compte ?
+          <a href="/auth/register" class="text-indigo-600 hover:underline">
+            Créer un compte
+          </a>
+        </p>
+      </div>
+    </div>
+
+    <!-- Colonne de droite (Visuel) - masquée en petit écran -->
+    <div class="hidden lg:flex lg:w-1/2 gradient-right items-center justify-center text-white p-10 relative">
+      <div class="max-w-md text-center">
+        <h2 class="text-3xl font-bold mb-4">Bienvenue dans l'univers MASA</h2>
+        <p class="text-sm text-white mb-6">
+          Planifiez, organisez et exécutez vos tâches avec efficacité. 
+          Simplifiez votre quotidien et boostez votre productivité grâce à nos outils intuitifs.
+        </p>
+        <img src="/img/yes.jpg" alt="ye" class="mx-auto w-24/3" />
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>
