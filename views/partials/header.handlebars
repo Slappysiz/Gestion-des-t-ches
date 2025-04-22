@@ -1,35 +1,56 @@
-<header class="bg-gradient-to-r from-purple-800 to-indigo-900 text-white py-6">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
-    <div class="flex justify-between items-center">
+<header class="bg-gradient-to-r from-purple-800 to-indigo-900 text-white">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex items-center justify-between h-16">
+      <!-- logo + badge de bienvenue -->
       <div class="flex items-center space-x-4">
         <a href="/" aria-label="Accueil">
-          <img src="/img/logo.png" alt="Logo MASA" class="h-10">
+          <img src="/img/logo.png" alt="Logo MASA" class="h-10 w-10"/>
         </a>
-      </div>
-      <div class="flex items-center space-x-4">
-        {{!-- Si l'utilisateur est connecté, afficher Accueil, Tâches, Profil et Déconnexion --}}
         {{#if user}}
-          <a href="/" class="text-white hover:bg-indigo-700 px-3 py-2 rounded-md text-sm font-medium transition-colors">
+          <span
+            class="inline-flex items-center bg-indigo-100 text-indigo-900 text-sm font-medium px-3 py-1 rounded-full shadow-sm"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg"
+                 class="h-4 w-4 mr-1"
+                 fill="none"
+                 viewBox="0 0 24 24"
+                 stroke="currentColor"
+            >
+              <path stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M5 13l4 4L19 7" />
+            </svg>
+            Bonne session, {{user.username}} !
+          </span>
+        {{/if}}
+      </div>
+
+      <!-- liens de navigation -->
+      <nav class="flex items-center space-x-4">
+        {{#if user}}
+          <a href="/" class="hover:bg-indigo-700 px-3 py-2 rounded-md text-sm font-medium transition">
             Accueil
           </a>
-          <a href="/tasks" class="text-white hover:bg-indigo-700 px-3 py-2 rounded-md text-sm font-medium transition-colors">
+          <a href="/tasks" class="hover:bg-indigo-700 px-3 py-2 rounded-md text-sm font-medium transition">
             Tâches
           </a>
-          <a href="/profile" class="text-white hover:bg-indigo-700 px-3 py-2 rounded-md text-sm font-medium transition-colors">
+          <a href="/profile" class="hover:bg-indigo-700 px-3 py-2 rounded-md text-sm font-medium transition">
             Profil
           </a>
           <form action="/auth/deconnexion" method="POST" class="inline">
-            <button type="submit" class="text-white hover:bg-indigo-700 px-3 py-2 rounded-md text-sm font-medium transition-colors">
+            <button type="submit"
+                    class="hover:bg-indigo-700 px-3 py-2 rounded-md text-sm font-medium transition">
               Déconnexion
             </button>
           </form>
-        {{!-- Sinon, afficher uniquement le lien Connexion --}}
         {{else}}
-          <a href="/auth/login" class="text-white hover:bg-indigo-700 px-3 py-2 rounded-md text-sm font-medium transition-colors">
+          <a href="/auth/login"
+             class="hover:bg-indigo-700 px-3 py-2 rounded-md text-sm font-medium transition">
             Connexion
           </a>
         {{/if}}
-      </div>
+      </nav>
     </div>
   </div>
 </header>

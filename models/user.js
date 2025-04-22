@@ -55,3 +55,14 @@ export const updateUser = async (id, newData) => {
     data: newData,
   });
 };
+
+/**
+ * Supprime un utilisateur par son ID.
+ * @param {number} id
+ * @returns {Promise<Object>}
+ */
+export const deleteUser = async (id) => {
+  return prisma.user.delete({
+    where: { id },
+  });
+};
