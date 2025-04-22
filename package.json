@@ -11,7 +11,9 @@
     "prisma:generate": "prisma generate",
     "prisma:migrate": "prisma migrate dev",
     "prisma:studio": "prisma studio",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "generate-cert": "node generate-cert.js",
+    "start-https": "node server.js"
   },
   "author": "",
   "license": "UNLICENSED",
@@ -31,7 +33,8 @@
   },
   "devDependencies": {
     "nodemon": "^3.1.9",
-    "prisma": "^6.6.0"
+    "prisma": "^6.6.0",
+    "selfsigned": "^2.4.1"
   },
   "prisma": {
     "seed": "node prisma/seed.js"

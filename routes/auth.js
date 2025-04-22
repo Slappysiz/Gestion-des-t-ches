@@ -52,35 +52,46 @@ router.post('/inscription', async (req, res, next) => {
   try {
     const { username, nom, prenom, email, password, confirmPassword } = req.body;
 
-    // Vérifie que les mots de passe correspondent
+    // 1) Vérifier que les mots de passe correspondent
     if (password !== confirmPassword) {
       return res.status(400).render('register', {
         title: 'Inscription',
-        error: 'Les mots de passe ne correspondent pas',
+        error: 'Les mots de passe ne correspondent pas'
       });
     }
 
-    // Vérifie si l'utilisateur existe déjà
-    const existingUser = await getUserByEmail(email);
-    if (existingUser) {
+    // 2) L’email n’existe pas déjà
+    if (await getUserByEmail(email)) {
       return res.status(400).render('register', {
         title: 'Inscription',
-        error: 'Cet email est déjà utilisé',
+        error: 'Cet email est déjà utilisé'
       });
     }
 
-    const newUser = await addUser(email, password, nom);
+    // 3) Créer l’utilisateur EN PASSANT TOUS les paramètres
+    const newUser = await addUser(
+      email,
+      password,
+      nom,
+      prenom,
+      username
+    );
 
-    // Connecte automatiquement l'utilisateur
-    req.logIn(newUser, (error) => {
-      if (error) return next(error);
+    // 4) Auto‑login et message de succès
+    req.logIn(newUser, err => {
+      if (err) return next(err);
       req.session.successMessage = "Votre compte a été créé avec succès";
       return res.redirect('/');
     });
+
   } catch (error) {
-    return res.status(400).render('register', { title: 'Inscription', error: error.message });
+    return res.status(500).render('register', {
+      title: 'Inscription',
+      error: error.message
+    });
   }
 });
+
 
 // Middleware de validation pour les tâches
 export const validateTask = (req, res, next) => {
