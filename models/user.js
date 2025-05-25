@@ -14,20 +14,12 @@ const prisma = new PrismaClient();
  * @returns {Promise<Object>} L'utilisateur créé.
  */
 export const addUser = async (email, password, nom, prenom, username) => {
-  // Hachage du mot de passe
   const hashedPassword = await bcrypt.hash(password, 10);
-  const user = await prisma.user.create({
-    data: {
-      email,
-      password: hashedPassword,
-      nom,
-      prenom,
-      username,
-      type: "USER",
-    },
+  return prisma.user.create({
+    data: { email, password: hashedPassword, nom, prenom, username, type: "USER" }
   });
-  return user;
 };
+
 
 /**
  * Récupère un utilisateur en fonction de son email.
