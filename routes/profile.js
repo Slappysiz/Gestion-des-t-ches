@@ -1,6 +1,6 @@
 import express from 'express';
 import passport from 'passport';
-import { getUserByEmail, getUserById, updateUser } from '../models/user.js';
+import { getUserByEmail, getUserById, updateUser, deleteUser } from '../models/user.js';
 import { requireAuth } from '../middleware/authMiddleware.js';
 
 const router = express.Router();
@@ -28,6 +28,26 @@ router.post('/update', requireAuth, async (req, res, next) => {
     }
   });
   
+  // POST /profile/delete — Supprime définitivement le compte
+router.post('/delete', requireAuth, async (req, res, next) => {
+  try {
+    // Supprimer l’utilisateur de la base
+    await deleteUser(req.user.id);
+
+    // Détruire la session Passport + session Express
+    req.logOut(err => {
+      if (err) return next(err);
+      req.session.destroy(err => {
+        if (err) return next(err);
+        // Rediriger vers la page de connexion
+        res.redirect('/auth/login');
+      });
+    });
+  } catch (error) {
+    next(error);
+  }
+});
+
 // FORMULAIRE d'édition
 router.get('/edit', requireAuth, async (req, res, next) => {
   try {

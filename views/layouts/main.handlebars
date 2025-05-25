@@ -1,79 +1,57 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{title}} - Gestionnaire de Tâches</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{title}} – Gestionnaire de Tâches</title>
 
-    <!-- Tailwind CSS via CDN pour simplifier le développement -->
-    <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap">
 
-    <!-- Ajout d'Inter, une police moderne -->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap">
+  <!-- Feather Icons -->
+  <script src="https://unpkg.com/feather-icons"></script>
 
-    <!-- Feather Icons -->
-    <script src="https://unpkg.com/feather-icons"></script>
-
-    <!-- Styles personnalisés -->
-    <link rel="stylesheet" href="/css/style.css">
-
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
-                    },
-                    colors: {
-                        primary: {
-                            50: '#f0f9ff',
-                            100: '#e0f2fe',
-                            200: '#bae6fd',
-                            300: '#7dd3fc',
-                            400: '#38bdf8',
-                            500: '#0ea5e9',
-                            600: '#0284c7',
-                            700: '#0369a1',
-                            800: '#075985',
-                            900: '#0c4a6e',
-                        },
-                    },
-                    animation: {
-                        'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
-                    }
-                },
-            },
-        }
-    </script>
+  <!-- Vos styles persos -->
+  <link rel="stylesheet" href="/css/style.css">
 </head>
 <body class="bg-gray-50 text-gray-900 font-sans min-h-screen flex flex-col">
 
-    <!-- Inclusion du header via un partial -->
-    {{> header}}
+  {{> header}}
 
-    <!-- Contenu principal -->
-    <main class="flex-grow w-full mx-auto px-4 sm:px-6 lg:px-8 py-6">
-        {{#if error}}
-            <div class="bg-red-100 border-l-4 border-red-500 text-red-700 p-4 mb-4 rounded-md" role="alert">
-                <p>{{error}}</p>
-            </div>
-        {{/if}}
-
-        {{{ body }}}
-    </main>
-
-    <!-- Inclusion du footer via un partial -->
-    {{> footer}}
-
-    <!-- Container pour les notifications -->
-    <div id="notifications-container" class="fixed bottom-4 right-4 z-50"></div>
-
-    <!-- Scripts JS -->
+  {{!-- Bannière flash --}}
+  {{#if successMessage}}
+    <div
+      id="flash-banner"
+      class="mx-auto mt-4 max-w-3xl bg-green-100 border-l-4 border-green-500 text-green-700 p-4 rounded shadow"
+      role="alert"
+    >
+      {{successMessage}}
+    </div>
     <script>
-        // Initialiser les icônes Feather
-        feather.replace();
+      setTimeout(() => {
+        const b = document.getElementById('flash-banner')
+        if (b) b.style.display = 'none'
+      }, 5000)
     </script>
-    <script src="/scripts/main.js"></script>
-    
+  {{/if}}
+
+  <main class="flex-1 w-full mx-auto px-4 sm:px-6 lg:px-8 py-6">
+    {{!-- Affichage éventuel des erreurs --}}
+    {{#if error}}
+      <div class="bg-red-100 border-l-4 border-red-500 text-red-700 p-4 mb-4 rounded-md" role="alert">
+        <p>{{error}}</p>
+      </div>
+    {{/if}}
+
+    {{{body}}}
+  </main>
+
+  {{> footer}}
+
+  <script>
+    feather.replace();
+  </script>
+  <script src="/scripts/main.js"></script>
 </body>
 </html>

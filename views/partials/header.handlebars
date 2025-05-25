@@ -1,35 +1,72 @@
-<header class="bg-gradient-to-r from-purple-800 to-indigo-900 text-white py-6">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
-    <div class="flex justify-between items-center">
-      <div class="flex items-center space-x-4">
-        <a href="/" aria-label="Accueil">
-          <img src="/img/logo.png" alt="Logo MASA" class="h-10">
-        </a>
-      </div>
-      <div class="flex items-center space-x-4">
-        {{!-- Si l'utilisateur est connecté, afficher Accueil, Tâches, Profil et Déconnexion --}}
-        {{#if user}}
-          <a href="/" class="text-white hover:bg-indigo-700 px-3 py-2 rounded-md text-sm font-medium transition-colors">
-            Accueil
-          </a>
-          <a href="/tasks" class="text-white hover:bg-indigo-700 px-3 py-2 rounded-md text-sm font-medium transition-colors">
-            Tâches
-          </a>
-          <a href="/profile" class="text-white hover:bg-indigo-700 px-3 py-2 rounded-md text-sm font-medium transition-colors">
-            Profil
-          </a>
-          <form action="/auth/deconnexion" method="POST" class="inline">
-            <button type="submit" class="text-white hover:bg-indigo-700 px-3 py-2 rounded-md text-sm font-medium transition-colors">
-              Déconnexion
-            </button>
-          </form>
-        {{!-- Sinon, afficher uniquement le lien Connexion --}}
-        {{else}}
-          <a href="/auth/login" class="text-white hover:bg-indigo-700 px-3 py-2 rounded-md text-sm font-medium transition-colors">
-            Connexion
-          </a>
-        {{/if}}
-      </div>
+{{!-- views/partials/header.handlebars --}}
+<header class="bg-gradient-to-r from-purple-800 to-indigo-900 text-white">
+  <div class="max-w-7xl mx-auto flex items-center justify-between px-4 py-4">
+    <div class="flex items-center space-x-4">
+      <a href="/" aria-label="Accueil">
+        <img src="/img/logo.png" alt="Logo MASA" class="h-10"/>
+      </a>
+      {{#if user}}
+        <span class="hidden sm:inline-flex items-center bg-indigo-200 bg-opacity-30 text-indigo-50 px-3 py-1 rounded-full text-sm">
+          <svg xmlns="http://www.w3.org/2000/svg"
+               class="h-5 w-5 text-white mr-1"
+               fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M5 13l4 4L19 7" />
+          </svg>
+          Bonne session, {{user.username}} !
+        </span>
+      {{/if}}
     </div>
+
+    {{!-- bouton hamburger visible sur mobile only --}}
+    <button id="mobile-menu-button"
+            class="sm:hidden focus:outline-none">
+      <svg xmlns="http://www.w3.org/2000/svg"
+           class="h-6 w-6 text-white"
+           fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M4 6h16M4 12h16M4 18h16"/>
+      </svg>
+    </button>
+
+    <nav class="hidden sm:flex items-center space-x-4">
+      {{#if user}}
+        <a href="/"      class="hover:bg-indigo-700 px-3 py-2 rounded text-sm">Accueil</a>
+        <a href="/tasks" class="hover:bg-indigo-700 px-3 py-2 rounded text-sm">Tâches</a>
+        <a href="/profile" class="hover:bg-indigo-700 px-3 py-2 rounded text-sm">Profil</a>
+        <form action="/auth/deconnexion" method="POST" class="inline">
+          <button class="hover:bg-indigo-700 px-3 py-2 rounded text-sm">Déconnexion</button>
+        </form>
+      {{else}}
+        <a href="/auth/login" class="hover:bg-indigo-700 px-3 py-2 rounded text-sm">Connexion</a>
+      {{/if}}
+    </nav>
   </div>
+
+  {{!-- menu mobile déroulant --}}
+  <div id="mobile-menu"
+       class="sm:hidden hidden bg-indigo-900 bg-opacity-90">
+    <nav class="flex flex-col px-4 pb-4 space-y-1">
+      {{#if user}}
+        <a href="/"      class="block px-3 py-2 rounded hover:bg-indigo-700">Accueil</a>
+        <a href="/tasks" class="block px-3 py-2 rounded hover:bg-indigo-700">Tâches</a>
+        <a href="/profile" class="block px-3 py-2 rounded hover:bg-indigo-700">Profil</a>
+        <form action="/auth/deconnexion" method="POST">
+          <button class="w-full text-left px-3 py-2 rounded hover:bg-indigo-700">
+            Déconnexion
+          </button>
+        </form>
+      {{else}}
+        <a href="/auth/login" class="block px-3 py-2 rounded hover:bg-indigo-700">Connexion</a>
+      {{/if}}
+    </nav>
+  </div>
+
+  <script>
+    document.getElementById('mobile-menu-button')
+      .addEventListener('click', () => {
+        document.getElementById('mobile-menu')
+          .classList.toggle('hidden');
+      });
+  </script>
 </header>

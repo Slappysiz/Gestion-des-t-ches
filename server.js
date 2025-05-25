@@ -109,11 +109,6 @@ app.use((req, res, next) => {
   delete req.session.successMessage;  // Supprime le message après l'avoir transmis
   next();
 });
-app.use((req, res, next) => {
-  res.locals.successMessage = req.session?.successMessage;
-  if (req.session) delete req.session.successMessage;
-  next();
-});
 
 // Configuration des routes
 console.log("Configuration des routes");
